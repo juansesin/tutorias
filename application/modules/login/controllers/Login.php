@@ -57,7 +57,10 @@ class Login extends CI_Controller {
 							"photo" => $user["photo"]
 						);
 						$this->session->set_userdata($sessionData);
-
+						//cookies
+						set_cookie('user',$login, '350000'); 
+						set_cookie('password',$passwd,'350000'); 
+						
 						$this->login_model->redireccionarUsuario();
 					}else{					
 						$data["msj"] = "<strong>" . $userExist[0]["first_name"] . "</strong> revisar su contraseña.";

@@ -55,13 +55,13 @@
 	    public function redireccionarUsuario()
 		{
 
-			$state = $this->session->userdata("state"); 
+			$state = $this->session->userdata("state");
 			$rol = $this->session->userdata("rol");
 			
 	    	switch($state){
-	    		/**case 0: //NEW USER, must change the password
+	    		case 0: //NEW USER, must change the password
 	    				redirect("/employee","location",301);
-	    				break;*/
+	    				break;
 	    		case 1: //ACTIVE USER
 						if($rol == 99){
 							redirect("/dashboard","location",301);
@@ -69,6 +69,10 @@
 							redirect("/estudiante/buscar","location",301);
 						}elseif($rol == 3){
 							redirect("/docente","location",301);
+						}elseif($rol == 4){
+							redirect("/dashboard","location",301);
+						}elseif($rol == 5){
+							redirect("/dashboard","location",301);
 						}
 	    				break;
 	    		case 2: //INACTIVE USER
@@ -81,5 +85,15 @@
 	    				break;
 	    	}
 	    }
-
+	    
+	
+		
+		
+		
+		
+		
+		
+		
+		
+	    
 	}

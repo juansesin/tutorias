@@ -132,10 +132,15 @@ if(!$info)
 								
 								if($lista["estado_tutoria"] == 5 ){
 									$bandera = false; //no se puede cancelar la inscripcion, tutoria cerrada
-									$mensaje = "La Tutoría se encuentra cerrada. ";
+									$mensaje = "La tutoría se encuentra cerrada. ";
 								}elseif($lista["estado_tutoria"] == 4 ){
 									$bandera = false; //no se puede cancelar la inscripcion, tutoria cancelada
-									$mensaje = "La Tutoría se encuentra cancelada. ";									
+									$mensaje = "La tutoría fue cancelada.";									
+								}
+
+								if($lista['estadoInscripcion'] == 0){
+									$bandera = false; //no se puede cancelar la inscripcion, inscripcion eliminada por usuario
+									$mensaje = "Usted canceló su inscripción a esta tutoría";
 								}
 
 								
@@ -189,12 +194,7 @@ if(!$info)
 										<input type="hidden" id="hddIdTutoriaEstudiante" name="hddIdTutoriaEstudiante" value="<?php echo $lista['id_tutorias_estudiante']; ?>"/>
 										<input type="hidden" id="hddIdTutoriaPrincipal" name="hddIdTutoriaPrincipal" value="<?php echo $lista["id_tutorias_principal"]; ?>"/>
 										<input type="hidden" id="hddAsistencia" name="hddAsistencia" value="<?php echo $lista["asistencia"]; ?>"/>
-										
-									<div class="form-group">
-										<label for="exampleInputPassword1">Calificación</label>
-<input type="text" id="calificacion_texto" name="calificacion_texto" class="form-control" value="<?php echo $lista["calificacion_texto"]; ?>" placeholder="Calificación" >
-									</div>
-									
+
 									<div class="form-group">
 										<select name="calificacion" id="calificacion" class="form-control" >
 											<option value="">Select...</option>
@@ -203,7 +203,13 @@ if(!$info)
 											<option value=3 <?php if($lista["calificacion"] == 3) { echo "selected"; }  ?>>Mala</option>
 										</select>
 									</div>
+										
+									<div class="form-group">
+										<label for="exampleInputPassword1">Calificación</label>
+<input type="text" id="calificacion_texto" name="calificacion_texto" class="form-control" value="<?php echo $lista["calificacion_texto"]; ?>" placeholder="Observaciones" >
+									</div>
 									
+								
 									<div class="box-footer">
 										<button type="button" id="btnSubmitCalificar" name="btnSubmitCalificar" class='btn btn-info'>
 												Calificar <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">

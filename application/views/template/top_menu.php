@@ -9,6 +9,10 @@
 		$enlace = base_url("estudiante/buscar"); 
 	}elseif($rol == 3){
 		$enlace = base_url("docente"); 
+	}elseif($rol == 4){
+		$enlace = base_url("dashboard"); 
+	}elseif($rol == 5){
+		$enlace = base_url("dashboard"); 
 	}
 	?>
 	

@@ -6,6 +6,9 @@
 
 $(document).ready(function () {
 	
+	
+	   // se cambia nombre funciona change por changer para deshabilitarla
+	   
     $('#Sede').change(function () {
         $('#Sede option:selected').each(function () {
             var Sede = $('#Sede').val();
@@ -41,6 +44,8 @@ $(document).ready(function () {
         });
     });
     
+    
+    // se cambia nombre funciona change por changer para deshabilitarla
     $('#Escuela').change(function () {
         $('#Escuela option:selected').each(function () {
             var Escuela = $('#Escuela').val();

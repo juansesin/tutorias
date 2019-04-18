@@ -117,7 +117,7 @@ if(count($PERIODOS) != 1){
                   <label for="exampleInputPassword1">Cantidad máxima de estudiantes</label>
 					<select name="max_estudiante" id="max_estudiante" class="form-control">
 						<option value="">Select...</option>
-						<?php for ($i = 1; $i <= 10; $i++) { ?>
+						<?php for ($i = 1; $i <= 24; $i++) { ?>
 							<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["tutorias_dias"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 						<?php } ?>
 					</select>

@@ -4,6 +4,38 @@
 
 	    		
 		/**
+		 * Add/Edit Usurio
+		 * @since 12/3/2019
+		 */
+		public function saveUsuario() 
+		{
+				$idUsuario = $this->input->post('hddId');
+				
+				$data = array(
+					'log_user' => $this->input->post('usuario'),
+					'last_name' => $this->input->post('last_name'),
+					'first_name' => $this->input->post('first_name'),
+					'movil' => $this->input->post('movil'),
+					'state' => $this->input->post('state'),
+					'email' => $this->input->post('email')
+				);
+				
+				//revisar si es para adicionar o editar
+				if ($idUsuario == '') {
+					$query = $this->db->insert('user', $data);
+					$idUsuario = $this->db->insert_id();				
+				} else {
+					$this->db->where('id_user', $idUsuario);
+					$query = $this->db->update('user', $data);
+				}
+				if ($query) {
+					return $idUsuario;
+				} else {
+					return false;
+				}
+		}
+
+		/**
 		 * Add/Edit LUGARES
 		 * @since 12/3/2019
 		 */
@@ -122,9 +154,11 @@
 		public function savePeriodo() 
 		{
 				$idTema = $this->input->post('hddId');
-				
-				$inicio_periodo = formatear_fecha($this->input->post('inicio_periodo'));
-				$fin_periodo = formatear_fecha($this->input->post('fin_periodo'));
+				$fechaInicio = date_create($this->input->post('inicio_periodo'));
+				$fechaFin = date_create($this->input->post('fin_periodo'));
+
+				$inicio_periodo = date_format($fechaInicio, 'Y-m-d');
+				$fin_periodo = date_format($fechaFin, 'Y-m-d');
 				
 				$data = array(
 					'nombre_periodo' => $this->input->post('periodo'),

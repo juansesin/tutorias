@@ -33,6 +33,30 @@ class Estudiante extends CI_Controller {
 				"id" => "x"
 			);
 			$data['SEDE'] = $this->general_model->get_basic_search($arrParam);
+
+			//listado escuelas
+			$arrParam = array(
+				"table" => "escuela",
+				"order" => "NOMBRE_ESCUELA",
+				"id" => "x"
+			);
+			$data['ESCUELA'] = $this->general_model->get_basic_search($arrParam);
+
+			//listado programas
+			$arrParam = array(
+				"table" => "param_programas",
+				"order" => "programa",
+				"id" => "x"
+			);
+			$data['PROGRAMA'] = $this->general_model->get_basic_search($arrParam);
+
+			//listado docentes
+			$arrParam = array(
+				"table" => "docente",
+				"order" => "NOMBRE",
+				"id" => "x"
+			);
+			$data['DOCENTE'] = $this->general_model->get_basic_search($arrParam);
 						
 			//informacion periodo
 			$arrParam = array("idEstado" => 1);
@@ -53,28 +77,29 @@ class Estudiante extends CI_Controller {
 			$data["view"] = 'form_busqueda';
 			
 			//Si envian los datos del filtro entonces muestro tutorias
-			if($this->input->post('Sede'))
+			if($this->input->post('SedeId') || $this->input->post('EscuelaId') || $this->input->post('ProgramaId') || $this->input->post('DocenteId'))
 			{
 				$data["view"] = 'listado_tutorias';
 
-				if($this->input->post('Docente')){
-					$docente = $this->input->post('Docente');
+				if($this->input->post('DocenteId')){
+					$docente = $this->input->post('DocenteId');
 				}else{
 					$docente = '';
 				}
 				
-				if($this->input->post('Programa')){
-					$programa = $this->input->post('Programa');
+				if($this->input->post('ProgramaId')){
+					$programa = $this->input->post('ProgramaId');
 				}else{
 					$programa = '';
 				}
 				
 				$arrParam = array(
 								"fechaActual" => true,
-								"idSede" => $this->input->post('Sede'),
-								"idEscuela" => $this->input->post('Escuela'),
+								"idSede" => $this->input->post('SedeId'),
+								"idEscuela" => $this->input->post('EscuelaId'),
 								"idDocente" => $docente,
-								"idPrograma" => $programa
+								"idPrograma" => $programa,
+								"listaEstadosTutoria" => [1, 2]
 							);
 				$data['info'] = $this->general_model->get_tutorias($arrParam);
 			}

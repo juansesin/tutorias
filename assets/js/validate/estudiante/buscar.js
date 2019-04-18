@@ -2,7 +2,10 @@
 			
 			$( "#form" ).validate( {
 				rules: {
-					Sede: 			{ required: true }
+					
+					// Sede: 			{ required: true }
+					
+					
 				},
 				errorElement: "em",
 				errorPlacement: function ( error, element ) {

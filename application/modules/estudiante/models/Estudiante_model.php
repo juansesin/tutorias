@@ -101,7 +101,14 @@
 		 */
 		public function deleteInscripcionEstudiante($idTutoria, $idEstudiante) 
 		{
-			$query = $this->db->delete("tutorias_estudiante", array("fk_te_id_user" => $idEstudiante, "fk_te_id_tutorias_principal" => $idTutoria));
+			//$query = $this->db->delete("tutorias_estudiante", array("fk_te_id_user" => $idEstudiante, "fk_te_id_tutorias_principal" => $idTutoria));
+			$data = array(
+				'estado' => 0
+			);
+			$this->db->where('fk_te_id_user', $idEstudiante);
+			$this->db->where('fk_te_id_tutorias_principal', $idTutoria);
+			$query = $this->db->update('tutorias_estudiante', $data);
+
 			if ($query) {
 				return true;
 			} else {

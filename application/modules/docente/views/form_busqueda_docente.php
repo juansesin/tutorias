@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/cancelar_tutoria.js"); ?>"></script>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -225,7 +226,12 @@ if(count($PERIODOS) != 1){
 <?php if($bandera && $numero_inscritos > 0){ ?>
 		<a href="<?php echo base_url('docente/inscritos/' . $lista['id_tutorias_principal']); ?>" class="btn btn-info btn-xs">Ver inscritos <i class="fa fa-eye"></i></a>
 <?php }
- ?>
+ if($estadoTutoria != 5){
+	?>
+   
+		   <button type="button" id="<?php echo $lista['id_tutorias_principal']; ?>" class="btn btn-danger btn-xs"> Cancelar <i class="fa fa-trash"></i></button>
+		   
+   <?php } ?>
 
 		
 	</div>

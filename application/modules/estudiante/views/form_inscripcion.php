@@ -182,7 +182,7 @@ if($info[0]['estado_tutoria'] != 1){
 				<button type="button" id="btnSubmit" name="btnSubmit" class='btn btn-primary'>
 						Inscribirse <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
 				</button>	
-				
+				<br><br> <i> Apreciado estudiante, si usted está buscando una Tutoría que no aparece creada, por favor acérquese a Decanatura de Estudiantes para que programen su tema</i>
               </div>			
 			  
 				</form>

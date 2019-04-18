@@ -4,7 +4,6 @@
 	<section class="content-header">
 		<h1>
 			Listado de Tutorías
-			
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -41,12 +40,30 @@
 					$fechaTutoriaInicio = date_create($fechaTutoriaInicio);
 					$fechaTutoriaFin = date_create($fechaCompletaFin);
 					$fechaActual = date_create(date('Y-m-d G:i'));
-					
-					if($fechaActual > $fechaTutoriaInicio && $lista["estado_tutoria"] == 1){
+					// JSJL Ajuste para que no se puedan inscribir con menos de 24 horas de antelación
+					$fechaUnDiasDespues = new DateTime($fechaTutoriaInicio->format('Y-m-d'));
+					$fechaUnDiasDespues->modify('-1 day');
+					$arrParam = array("idUser" => $this->session->userdata('id'), "idDocente" => $lista["fk_id_docente"]);
+					$tutoriaConDocente = $this->general_model->get_tutoria_con_docente($arrParam);
+					// JSJL Ajuste para que no se puedan inscribir con menos de 24 horas de antelación
+					// JSJL Ajuste para que no se puedan inscribir en el mismo horario
+					$arrParam = array("idUser" => $this->session->userdata('id'), "fechaTutoria" => $lista["fecha_tutoria"], "horaInicio" => $lista["hora_inicio"] );
+					$tutoriaEnHorario = $this->general_model->get_tutoria_en_horario($arrParam);
+					// JSJL Ajuste para que no se puedan inscribir en el mismo horario
+					if($tutoriaConDocente == 1){
+						$bandera = false; //no se puede inscribir porque ya empezo la tutoria
+						$mensaje = "No es posible inscribirse. Ya tiene una tutoría inscrita con este docente. ";
+					}
+					elseif($fechaActual > $fechaTutoriaInicio && $lista["estado_tutoria"] == 1){
 						$bandera = false; //no se puede inscribir porque ya empezo la tutoria
 						$mensaje = "No es posible inscribirse. Ya inicio la Tutoría. ";
 					}
-					
+					// JSJL Ajuste para que no se puedan inscribir con menos de 24 horas de antelación
+					elseif($fechaActual > $fechaUnDiasDespues && $lista["estado_tutoria"] == 1){
+						$bandera = false; //no se puede inscribir porque ya empezo la tutoria
+						$mensaje = "No es posible inscribirse. Faltan menos de 24 horas. ";
+					}
+					// JSJL Ajuste para que no se puedan inscribir con menos de 24 horas de antelación
 					if($fechaActual > $fechaTutoriaFin && $lista["estado_tutoria"] >= 2){
 						$bandera = false; //no se puede inscribir porque ya empezo la tutoria
 						$mensaje = "No es posible inscribirse. Ya terminó la Tutoría. ";
@@ -62,7 +79,7 @@
 					
 					if($lista["estado_tutoria"] == 5 ){
 						$bandera = false; //no se puede inscribir ya se lleno el cupo de la tutoria
-						$mensaje = "No es posible inscribirse. La Tutotoría se encuentra cerrada. ";
+						$mensaje = "No es posible inscribirse. La Tutoría se encuentra cerrada. ";
 					}
 					
 					switch($lista["estado_tutoria"]){
@@ -90,8 +107,11 @@
 								break;
 					}
 					
-					//si es diferente de 4(CANCELADA) SE MUESTRA
-					if($lista["estado_tutoria"] != 4){
+				//si es diferente de 4(CANCELADA) SE MUESTRA
+				// JSJL agrego condicion para que no muestre las tutorias de un profesor si el estudiante ya tiene una tutpria con él o ya tiene tutoría en ese horario
+				// JSJL if($lista["estado_tutoria"] != 4){
+					if($lista["estado_tutoria"] != 4 and $tutoriaConDocente != 1 and $tutoriaEnHorario != 1){
+				// JSJL agrego condicion para que no muestre las tutorias de un profesor si el estudiante ya tiene una tutpria con él o ya tiene tutoría en ese horario
 						
 				?>
 					<div class="col-lg-6 col-xs-6">

@@ -84,8 +84,8 @@ class Tutorias extends CI_Controller {
 			$viernes_fin = $this->input->post('horario_maximo_viernes');
 			$sabado_inicio = $this->input->post('horario_minimo_sabado');
 			$sabado_fin = $this->input->post('horario_maximo_sabado');
-
-						$errores = false;
+						
+			$errores = false;
 			if((!empty($lunes_inicio) && !empty($lunes_fin)) && $lunes_inicio == $lunes_fin){
 				$errores = true;
 			}
@@ -105,7 +105,7 @@ class Tutorias extends CI_Controller {
 				$errores = true;
 			}
 						
-			if ($idTutoria = $this->tutorias_model->saveTutoria()) 
+			if ($idTutoria = $this->tutorias_model->saveTutoria() && !$errores ) 
 			{
 				//GUARDO ASIGNATURAS DE LA Tutorias
 				$asignaturas = $this->input->post('Asignaturas');
@@ -255,9 +255,7 @@ class Tutorias extends CI_Controller {
 						}
 					}
 					
-				}
-				
-				
+				}				
 				$data["result"] = true;
 				$data["idRecord"] = $idTutoria;
 				$this->session->set_flashdata('retornoExito', 'Se guardó la información');
@@ -473,18 +471,37 @@ class Tutorias extends CI_Controller {
 	public function guardar_edicion_tutoria()
 	{			
 			header('Content-Type: application/json');
-
-			if ($idTutoria = $this->tutorias_model->updateTutoria()) 
-			{				
-				$data["result"] = true;
-				$data["idRecord"] = $idTutoria;
-				$this->session->set_flashdata('retornoExito', 'Se guardó la información');
-			} else {
-				$data["result"] = "error";
-				$data["idRecord"] = '';
-				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help, contact the Admin.');
+			$idTutoria = $this->input->post('hddIdTutoriaPrincipal');
+			$arrParam = array(
+				"idTutoria" => $idTutoria
+			);
+			$data["result"] = true;
+			$data["idRecord"] = $idTutoria;
+			$infoTutoria = $this->general_model->get_tutorias($arrParam);
+			if($infoTutoria){
+				$fechaTutoria = $infoTutoria[0]['fecha_tutoria'];
+				$errores = false;
+				if(!$this->input->post('fecha') > $fechaTutoria){
+					$this->session->set_flashdata('retornoError', '<strong>¡ERROR EN LA FECHA!</strong> La oferta de tutorías debe ser programada con un mínimo de 24 horas de anticipación.');
+					$errores = true;
+				}
+				if($this->input->post('horarioInicio') == $this->input->post('horarioFin')){
+					$this->session->set_flashdata('retornoError', '<strong>¡ERROR EN LA HORA!</strong> Valide que la hora de inicio y la hora fin, sean diferentes');
+					$errores = true;
+				}
+				if(!$errores){
+					if ($idTutoria = $this->tutorias_model->updateTutoria()) 
+					{				
+						$data["result"] = true;
+						$data["idRecord"] = $idTutoria;
+						$this->session->set_flashdata('retornoExito', 'Se guardó la información');
+					} else {
+						$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Contáctese con el administrador');
+					}
+				}				
+			}else{				
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> No existe la tutoria.'); 
 			}
-
 			echo json_encode($data);
     }
 	

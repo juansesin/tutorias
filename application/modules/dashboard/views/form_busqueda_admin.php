@@ -1,6 +1,8 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/tutorias/ajaxEscuela.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/dashboard/buscar_admin.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/cancelar_tutoria.js"); ?>"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -94,16 +96,56 @@ if(count($PERIODOS) != 1){
 										<label for="exampleInputEmail1">Estado</label>
 										<select name="Estado" id="Estado" class="form-control" >
 											<option value="">Select...</option>
-											<option value=1 >Nueva</option>
-											<option value=2 >Pendiente</option>
-											<option value=3 >Programada</option>
-											<option value=5 >Cerrada</option>
-											<option value=4 >Cancelada</option>
+											<option value="1" >Nueva</option>
+											<option value="3" >Pendiente</option>
+											<option value="2" >Programada</option>
+											<option value="5" >Cerrada</option>
+											<option value="4" >Cancelada</option>
 										</select>
 									</div>
 								</div>
 
+							<div class="row">
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Fecha inicio</label>
+
+<script>
+	$( function() {
+		$( "#fechaInicio" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: 'yy-mm-dd'
+		});
+	});
+</script>
+
+<input type="text" class="form-control" id="fechaInicio" name="fechaInicio" value="<?php if($_POST) { echo $this->input->post('fechaInicio'); }  ?>" placeholder="Fecha inicio" />
+										
+									</div>
+								</div>
+									
+								<div class="col-xs-2">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Fecha fin</label>
+<script>
+	$( function() {
+		$( "#fechaFin" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: 'yy-mm-dd'
+		});
+	});
+</script>
+
+<input type="text" class="form-control" id="fechaFin" name="fechaFin" value="<?php if($_POST) { echo $this->input->post('fechaFin'); }  ?>" placeholder="Fecha fin" />
+									</div>
+								</div>
+
 							</div>
+						
+						</div>
+
 
 							<div class="box-footer">
 

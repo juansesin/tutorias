@@ -63,7 +63,11 @@
 				$this->load->view("template/left_menu_estudiante"); 
 			}elseif($rol == 3){
 				$this->load->view("template/left_menu_docente"); 
-			}
+			}elseif($rol == 4){
+        $this->load->view("template/left_menu_gestorp"); 
+      }elseif($rol == 5){
+        $this->load->view("template/left_menu_gestore"); 
+      }
 			?>
   
 			<!-- Start of content -->

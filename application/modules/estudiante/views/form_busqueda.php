@@ -56,42 +56,55 @@ if(count($PERIODOS) != 1){
               <div class="box-body">
 			  
 				<div class="row">
-					<div class="col-xs-2">
+					<div class="col-xs-3">
 						<div class="form-group">
 							<label for="exampleInputEmail1">Sede</label>
-							<select name="Sede" id="Sede" class="form-control" >
+							<select name="SedeId" id="SedeId" class="form-control" style="width:60%;display:inline-block;">
 								<option value=''>Select...</option>
 								<?php for ($i = 0; $i < count($SEDE); $i++) { ?>
 								<option value="<?php echo $SEDE[$i]["ID_SEDE"]; ?>" <?php if($information[0]["fk_sede"] == $SEDE[$i]["ID_SEDE"]) { echo "selected"; }  ?>><?php echo $SEDE[$i]["NOMBRE_SEDE"]; ?></option>	
 								<?php } ?>
-							</select>
+              </select>
+              <button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 						</div>
 					</div>
 						
-					<div class="col-xs-4">
+					<div class="col-xs-3">
 						<div class="form-group">
 							<label for="exampleInputPassword1">Escuela</label>
-							<select name="Escuela" id="Escuela" class="form-control" >
-
-							</select>
+                <select name="EscuelaId" id="EscuelaId" class="form-control" style="width:60%;display:inline-block;">
+                  <option value=''>Select...</option>
+                  <?php foreach($ESCUELA as $escuela) { ?>
+                  <option value="<?php echo $escuela["ID_ESCUELA"]; ?>"><?php echo $escuela["NOMBRE_ESCUELA"]; ?></option>	
+                  <?php } ?>								
+                </select>
+                <button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 						</div>
 					</div>
 					
 					<div class="col-xs-3">
 						<div class="form-group">
 						<label for="exampleInputPassword1">Programa</label>
-						<select name="Programa" id="Programa" class="form-control" >
-
-						</select>
+						<select name="ProgramaId" id="ProgramaId" class="form-control" style="width:60%;display:inline-block;">
+                <option value=''>Select...</option>
+								<?php foreach($PROGRAMA as $programa) { ?>
+								<option value="<?php echo $programa["id_param_programas"]; ?>"><?php echo $programa["programa"]; ?></option>	
+								<?php } ?>
+            </select>
+            <button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 						</div>
 					</div>
 					
 					<div class="col-xs-3">
 						<div class="form-group">
 						<label for="exampleInputPassword1">Docente</label>
-						<select name="Docente" id="Docente" class="form-control" >
-
-						</select>
+						<select name="DocenteId" id="DocenteId" class="form-control" style="width:60%;display:inline-block;">
+            <option value=''>Select...</option>
+								<?php foreach($DOCENTE as $docente) { ?>
+								<option value="<?php echo $docente["ID_DOCENTE"]; ?>"><?php echo $docente["NOMBRE"]; ?></option>	
+								<?php } ?>            
+            </select>
+            <button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 						</div>
 					</div>
 

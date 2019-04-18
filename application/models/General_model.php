@@ -20,13 +20,75 @@ class General_model extends CI_Model {
             $this->db->where($arrData["column"], $arrData["id"]);
         $this->db->order_by($arrData["order"], "ASC");
         $query = $this->db->get($arrData["table"]);
-//die(print_r($this->db));
+
         if ($query->num_rows() >= 1) {
             return $query->result_array();
         } else
             return false;
     }
 	
+    /**
+     * Verifica si un estudiante ya tiene tutoria el mismo día a la misma hora
+     * Modules: Parametros
+     * @since 12/3/2019
+     * select * from tutorias_principal, tutorias_estudiante where tutorias_principal.id_tutorias_principal = tutorias_estudiante.fk_te_id_tutorias_principal and tutorias_principal.fk_id_docente =1901 and fk_te_id_user =21;
+     * JSJL 
+     */
+    public function get_tutoria_en_horario($arrData) 
+	{
+        $this->db->select();
+        $this->db->join('tutorias_principal tp', 'tp.id_tutorias_principal = te.fk_te_id_tutorias_principal', 'INNER');
+		
+        if (array_key_exists("fechaTutoria", $arrData)) {
+            $this->db->where('tp.fecha_tutoria', $arrData["fechaTutoria"]);
+        }
+        if (array_key_exists("horaInicio", $arrData)) {
+            $this->db->where('tp.hora_inicio', $arrData["horaInicio"]);
+        }
+        if (array_key_exists("idUser", $arrData)) {
+            $this->db->where('te.fk_te_id_user', $arrData["idUser"]);
+        }
+	$query = $this->db->get('tutorias_estudiante te');
+        if ($query->num_rows() > 0) 
+	{
+            return true;
+        } 
+	else 
+	{
+            return false;
+        }
+    }
+
+    /**
+     * Verifica si un estudiante tiene tutorias con un profesor
+     * Modules: Parametros
+     * @since 12/3/2019
+     * select * from tutorias_principal, tutorias_estudiante where tutorias_principal.id_tutorias_principal = tutorias_estudiante.fk_te_id_tutorias_principal and tutorias_principal.fk_id_docente =1901 and fk_te_id_user =21;
+     * JSJL 
+     */
+    public function get_tutoria_con_docente($arrData) 
+	{
+        $this->db->select();
+        $this->db->join('tutorias_principal tp', 'tp.id_tutorias_principal = te.fk_te_id_tutorias_principal', 'INNER');
+		
+        if (array_key_exists("idDocente", $arrData)) {
+            $this->db->where('tp.fk_id_docente', $arrData["idDocente"]);
+        }
+        if (array_key_exists("idUser", $arrData)) {
+            $this->db->where('te.fk_te_id_user', $arrData["idUser"]);
+        }
+		
+	$query = $this->db->get('tutorias_estudiante te');
+        if ($query->num_rows() > 0) 
+	{
+            return true;
+        } 
+	else 
+	{
+            return false;
+        }
+    }
+
     /**
      * Asignaturas
      * Modules: Parametros
@@ -82,25 +144,27 @@ class General_model extends CI_Model {
         }
     }
 
-      /**
-     * MOtivosCancelaciones
-     * Modules: MOtivosCancelaciones
+    /**
+     * usuarios
+     * Modules: Parametros
      * @since 13/3/2019
      */
-    public function get_motivosCancelaciones($arrData) 
-    {
-        $this->db->select("*");
-        
-        $this->db->order_by('motivocancelacion', 'asc');
-        $query = $this->db->get('motivocancelacion');
-
+    public function get_usuarios($arrData) 
+	{
+        $this->db->select("U.*");
+        $this->db->where('U.state', 1);
+        if (array_key_exists("idUser", $arrData)) {
+            $this->db->where('U.id_user', $arrData["idUser"]);
+        }
+	$this->db->order_by('U.log_user', 'desc');
+	$query = $this->db->get('user U');
         if ($query->num_rows() > 0) {
             return $query->result_array();
         } else {
             return false;
         }
-    }   
-
+    }
+	
     /**
      * periodos
      * Modules: Parametros
@@ -138,10 +202,12 @@ class General_model extends CI_Model {
 		public function get_horas($arrData) 
 		{
 			if (array_key_exists("idHoraInicio", $arrData)) {
-				$this->db->where('id_hora >=', $arrData["idHoraInicio"]);
+//$this->db->where('id_hora >=', $arrData["idHoraInicio"]);
+                $this->db->where('id_hora >=', 0);
 			}
 			if (array_key_exists("idHoraFinal", $arrData)) {
-				$this->db->where('id_hora <=', $arrData["idHoraFinal"]);
+                //$this->db->where('id_hora <=', $arrData["idHoraFinal"]);
+                $this->db->where('id_hora <=', 24);
 			}
 			$this->db->order_by("id_hora", "ASC");
 			$query = $this->db->get("param_horas");
@@ -224,12 +290,13 @@ class General_model extends CI_Model {
 		$this->db->join('param_horas X', 'X.id_hora = T.hora_fin', 'INNER');
 		$this->db->join('param_asignaturas Y', 'Y.id_param_asignaturas = T.fk_tp_id_param_asignaturas', 'LEFT');
 		$this->db->join('param_temas Z', 'Z.id_param_temas = T.fk_tp_id_param_temas', 'LEFT');
-		
+        $this->db->order_by("fecha_tutoria", "ASC");
+        
         if (array_key_exists("idTutoria", $arrData)) {
             $this->db->where('T.id_tutorias_principal', $arrData["idTutoria"]);
         }
 		
-        if (array_key_exists("idSede", $arrData)) {
+        if (array_key_exists("idSede", $arrData) && $arrData["idSede"] != '') {
             $this->db->where('T.fk_id_sede', $arrData["idSede"]);
         }
 		
@@ -247,6 +314,10 @@ class General_model extends CI_Model {
 		
 		if (array_key_exists("Estado", $arrData) && $arrData["Estado"] != '') {
             $this->db->where('T.estado_tutoria', $arrData["Estado"]);
+        }
+
+        if (array_key_exists("listaEstadosTutoria", $arrData) && !empty($arrData["listaEstadosTutoria"])) {
+            $this->db->where_in('T.estado_tutoria', $arrData["listaEstadosTutoria"]);
         }
 		
 		if (array_key_exists("idPrograma", $arrData) && $arrData["idPrograma"] != '') {
@@ -380,7 +451,7 @@ class General_model extends CI_Model {
 	{
 		$idUser = $this->session->userdata("id");
 		
-        $this->db->select("T.*, D.NOMBRE, L.direccion, H.hora minimo, H.formato_24 formato_minimo, X.hora maximo, Y.asignaturas, Z.temas, W.calificacion_texto, W.calificacion, W.id_tutorias_estudiante");
+        $this->db->select("T.*, D.NOMBRE, L.direccion, H.hora minimo, H.formato_24 formato_minimo, X.hora maximo, Y.asignaturas, Z.temas, W.calificacion_texto, W.calificacion, W.estado as estadoInscripcion, W.id_tutorias_estudiante");
         $this->db->join('tutorias_principal T', 'T.id_tutorias_principal = W.fk_te_id_tutorias_principal', 'INNER');
 		$this->db->join('docente D', 'D.ID_DOCENTE = T.fk_id_docente', 'INNER');
 		$this->db->join('param_lugares L', 'L.id_param_lugares = T.fk_id_lugar', 'INNER');
@@ -390,7 +461,7 @@ class General_model extends CI_Model {
 		$this->db->join('param_temas Z', 'Z.id_param_temas = T.fk_tp_id_param_temas', 'LEFT');
 		
 		$this->db->where('W.fk_te_id_user', $idUser);
-       
+        //$this->db->where('W.estado', 1);
 		$this->db->order_by("fecha_tutoria", "DESC");
 		$query = $this->db->get('tutorias_estudiante W');
 

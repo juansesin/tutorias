@@ -51,6 +51,38 @@ class Parametros extends CI_Controller {
     }
 	
 	/**
+	 * Update usuarios
+     * @since 12/3/2019
+     * @author JSJL
+	 */
+	public function save_usuario()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idUsuario = $this->input->post('hddId');
+			
+			$msj = "Se adicionó un nuevo Usuario";
+			if ($idUsuario != '') {
+				$msj = "Se editó un Usuario";
+			}
+
+			if ($idUsuario = $this->parametros_model->saveUsuario()) {
+				$data["result"] = true;
+				$data["idRecord"] = $idUsuario;
+				
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$data["idRecord"] = "";
+				
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    }
+
+	/**
 	 * Update lugar
      * @since 12/3/2019
      * @author BMOTTAG
@@ -303,6 +335,21 @@ class Parametros extends CI_Controller {
     }
 	
 	/**
+	 * Lista de usuarios
+     * @since 17/4/2019
+     * @author JSJL
+	 */
+	public function usuarios()
+	{
+			$this->load->model("general_model");
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_usuarios($arrParam);
+			
+			$data["view"] = 'usuarios';
+			$this->load->view("layout", $data);
+	}
+	
+	/**
 	 * Lista de periodos
      * @since 13/3/2019
      * @author BMOTTAG
@@ -317,6 +364,20 @@ class Parametros extends CI_Controller {
 			$this->load->view("layout", $data);
 	}
 	
+    /**
+     * Cargo modal - formulario usuarios
+     * @since 13/3/2019
+     */
+    public function cargarModalUsuarios() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$arrParam = array("idUser" => $this->input->post("idUser"));
+			$data['information'] = $this->general_model->get_usuarios($arrParam);
+			$this->load->view("usuarios_modal", $data);
+    }
+
     /**
      * Cargo modal - formulario periodos
      * @since 13/3/2019
