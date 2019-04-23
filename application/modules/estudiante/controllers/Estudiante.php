@@ -24,7 +24,7 @@ class Estudiante extends CI_Controller {
 	 */
 	public function buscar()
 	{			
-			$data['information'] = FALSE;
+			$data['information'] = FALSE; 
 			
 			//listado sedes
 			$arrParam = array(
@@ -50,6 +50,14 @@ class Estudiante extends CI_Controller {
 			);
 			$data['PROGRAMA'] = $this->general_model->get_basic_search($arrParam);
 
+			//listado asignaturas
+			$arrParam = array(
+				"table" => "param_asignaturas",
+				"order" => "asignaturas",
+				"id" => "x"
+			);
+			$data['ASIGNATURA'] = $this->general_model->get_basic_search($arrParam);
+
 			//listado docentes
 			$arrParam = array(
 				"table" => "docente",
@@ -64,6 +72,7 @@ class Estudiante extends CI_Controller {
 			
 			$idEstudiante = $this->session->userdata("id");
 			$idPeriodo = $data['PERIODOS'][0]['id_param_periodos'];
+
 			//busco informacion en la tabla ESTUDIANTE_CANCELACIONES si existe registro
 			$arrParam = array("idEstudiante" => $idEstudiante, "idPeriodo" => $idPeriodo);
 			$data['infoEstudianteCancelaciones'] = $this->general_model->get_cancelaciones_estudiante($arrParam);		
@@ -77,7 +86,7 @@ class Estudiante extends CI_Controller {
 			$data["view"] = 'form_busqueda';
 			
 			//Si envian los datos del filtro entonces muestro tutorias
-			if($this->input->post('SedeId') || $this->input->post('EscuelaId') || $this->input->post('ProgramaId') || $this->input->post('DocenteId'))
+			if($this->input->post('SedeId') || $this->input->post('EscuelaId') || $this->input->post('ProgramaId') || $this->input->post('DocenteId') || $this->input->post('AsignaturaId') || $this->input->post('fechaInicio') || $this->input->post('fechaFin'))
 			{
 				$data["view"] = 'listado_tutorias';
 
@@ -99,12 +108,15 @@ class Estudiante extends CI_Controller {
 								"idEscuela" => $this->input->post('EscuelaId'),
 								"idDocente" => $docente,
 								"idPrograma" => $programa,
+								"idAsignatura" => $this->input->post('AsignaturaId'),
+								"fechaInicio" => $this->input->post('fechaInicio'),
+								"fechaFin" => $this->input->post('fechaFin'),
 								"listaEstadosTutoria" => [1, 2]
 							);
 				$data['info'] = $this->general_model->get_tutorias($arrParam);
 			}
 
-			$this->load->view("layout", $data);			
+			$this->load->view("layout", $data);
 	}		
 	
 	/**

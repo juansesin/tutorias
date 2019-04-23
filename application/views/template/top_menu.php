@@ -26,6 +26,10 @@
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
+	
+		<!--<div class="pull-left info">
+          <p style="color: #003865; font-size: 18px; font-weight: 600; padding-top: 5%;">Bienvenid@: <?php echo $this->session->firstname; ?> <?php echo $this->session->lastname; ?></p>
+        </div>-->
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">

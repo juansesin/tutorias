@@ -41,8 +41,8 @@
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url("parametros/periodos"); ?>"><i class="fa fa-circle-o"></i> Períodos</a></li>
             <li><a href="<?php echo base_url("parametros/programas"); ?>"><i class="fa fa-circle-o"></i> Programas</a></li>
-   	    <li><a href="<?php echo base_url("parametros/asignaturas"); ?>"><i class="fa fa-circle-o"></i> Asignaturas</a></li>
-   	    <li><a href="<?php echo base_url("parametros/usuarios"); ?>"><i class="fa fa-user"></i> Usuarios</a></li>
+   	    	<li><a href="<?php echo base_url("parametros/asignaturas"); ?>"><i class="fa fa-circle-o"></i> Asignaturas</a></li>
+   	    	<li><a href="<?php echo base_url("parametros/usuarios"); ?>"><i class="fa fa-user"></i> Usuarios</a></li>
           </ul>
         </li>
 

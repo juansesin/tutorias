@@ -122,17 +122,18 @@ if(!$info)
 								
 								if($fechaActual > $fechaTutoriaInicio){
 									$bandera = false; //no se cancelar porque ya empezo la tutoria
-									$mensaje = "Ya inicio la Tutoría.";
+									$mensaje = "Ya inició la Tutoría.";
 									
-									if($lista["estado_tutoria"] < 4 && $lista["asistencia"] == 1){
-										$banderaIniciada = true;//si esta iniciada y NO esta cancelada y no esta cerrada entonces puede calificar al docente
+									if($lista["estado_tutoria"] != 4 && $lista["asistencia"] == 1){
+										$banderaIniciada = true;//si esta iniciada y NO esta cancelada (y no esta cerrada entonces puede calificar al docente; se elimina esta condición)
+										$mensaje = "Tutoría perdiente por calificar";
 									}
 									
 								}
 								
 								if($lista["estado_tutoria"] == 5 ){
 									$bandera = false; //no se puede cancelar la inscripcion, tutoria cerrada
-									$mensaje = "La tutoría se encuentra cerrada. ";
+									//$mensaje = "La tutoría se encuentra cerrada. ";
 								}elseif($lista["estado_tutoria"] == 4 ){
 									$bandera = false; //no se puede cancelar la inscripcion, tutoria cancelada
 									$mensaje = "La tutoría fue cancelada.";									
@@ -194,10 +195,10 @@ if(!$info)
 										<input type="hidden" id="hddIdTutoriaEstudiante" name="hddIdTutoriaEstudiante" value="<?php echo $lista['id_tutorias_estudiante']; ?>"/>
 										<input type="hidden" id="hddIdTutoriaPrincipal" name="hddIdTutoriaPrincipal" value="<?php echo $lista["id_tutorias_principal"]; ?>"/>
 										<input type="hidden" id="hddAsistencia" name="hddAsistencia" value="<?php echo $lista["asistencia"]; ?>"/>
-
+								<label for="exampleInputPassword1">Calificación</label>
 									<div class="form-group">
-										<select name="calificacion" id="calificacion" class="form-control" >
-											<option value="">Select...</option>
+										<select name="calificacion" id="calificacion" class="form-control select2" >
+											<option value="">Seleccione...</option>
 											<option value=1 <?php if($lista["calificacion"] == 1) { echo "selected"; }  ?>>Buena</option>
 											<option value=2 <?php if($lista["calificacion"] == 2) { echo "selected"; }  ?>>Regular</option>
 											<option value=3 <?php if($lista["calificacion"] == 3) { echo "selected"; }  ?>>Mala</option>
@@ -205,8 +206,7 @@ if(!$info)
 									</div>
 										
 									<div class="form-group">
-										<label for="exampleInputPassword1">Calificación</label>
-<input type="text" id="calificacion_texto" name="calificacion_texto" class="form-control" value="<?php echo $lista["calificacion_texto"]; ?>" placeholder="Observaciones" >
+									<input type="text" id="calificacion_texto" name="calificacion_texto" class="form-control" value="<?php echo $lista["calificacion_texto"]; ?>" placeholder="Observaciones" >
 									</div>
 									
 								

@@ -1,8 +1,10 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/tutorias/ajaxEscuela.js"); ?>"></script>
+<!--<script type="text/javascript" src="<?php echo base_url("assets/js/validate/tutorias/ajaxEscuela.js"); ?>"></script>-->
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/dashboard/buscar_admin.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/cancelar_tutoria.js"); ?>"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
+<script src="vendor/select2/dist/js/select2.min.js"></script>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -49,96 +51,111 @@ if(count($PERIODOS) != 1){
 						<!-- /.box-header -->			
 						
 						<div class="box-body">
-
 							<div class="row">
-								<div class="col-xs-3">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Sede</label>
-										<select name="Sede" id="Sede" class="form-control" >
-											<option value=''>Select...</option>
+										<label for="exampleInputEmail1">Sede</label><br>
+										<select name="SedeId" id="SedeId" class="form-control" style="width:80%;display:inline-block;">
+											<option value=''>Seleccionar...</option>
 											<?php for ($i = 0; $i < count($SEDE); $i++) { ?>
-											<option value="<?php echo $SEDE[$i]["ID_SEDE"]; ?>" <?php if($_POST && $this->input->post('Sede') == $SEDE[$i]["ID_SEDE"]) { echo "selected"; }  ?>><?php echo $SEDE[$i]["NOMBRE_SEDE"]; ?></option>	
+											<option value="<?php echo $SEDE[$i]["ID_SEDE"]; ?>" <?php if($information[0]["fk_sede"] == $SEDE[$i]["ID_SEDE"]) { echo "selected"; }  ?>><?php echo $SEDE[$i]["NOMBRE_SEDE"]; ?></option>	
 											<?php } ?>
-										</select>
+				              			</select>
+              							<button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 									</div>
 								</div>
 									
-								<div class="col-xs-5">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label for="exampleInputPassword1">Escuela</label>
-										<select name="Escuela" id="Escuela" class="form-control" >
+										<label for="exampleInputPassword1">Escuela</label><br>
+						                <select name="EscuelaId" id="EscuelaId" class="form-control" style="width:80%;display:inline-block;">
+						      	            <option value=''>Seleccionar...</option>
+						        	        <?php foreach($ESCUELA as $escuela) { ?>
+						            	    <option value="<?php echo $escuela["ID_ESCUELA"]; ?>"><?php echo $escuela["NOMBRE_ESCUELA"]; ?></option>	
+						                	<?php } ?>								
+						                </select>
+						                <button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
+									</div>
+								</div>
 
-										</select>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Docente</label><br>
+										<select name="DocenteId" id="DocenteId" class="form-control" style="width:80%;display:inline-block;">
+            								<option value=''>Seleccionar...</option>
+											<?php foreach($DOCENTE as $docente) { ?>
+											<option value="<?php echo $docente["ID_DOCENTE"]; ?>"><?php echo $docente["NOMBRE"]; ?></option>	
+											<?php } ?>            
+            							</select>
+            							<button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 									</div>
 								</div>
 								
-								<div class="col-xs-4">
+								<div class="col-md-3">
 									<div class="form-group">
-									<label for="exampleInputPassword1">Docente</label>
-									<select name="Docente" id="Docente" class="form-control" >
-
-									</select>
+										<label for="exampleInputPassword1">Asignatura</label><br>
+										<select name="AsignaturaId" id="AsignaturaId" class="form-control" style="width:80%;display:inline-block;">
+										<option value=''>Seleccionar...</option>
+										<?php foreach($ASIGNATURA as $asignatura) { ?>
+										<option value="<?php echo $asignatura["id_param_asignaturas"]; ?>"><?php echo $asignatura["asignaturas"]; ?></option>	
+										<?php } ?>
+              							</select>
+              							<button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 									</div>
 								</div>
-								
-								<div class="col-xs-3">
-									<div class="form-group">
-									<label for="exampleInputPassword1">Asignatura</label>
-									<select name="Asignaturas" id="Asignaturas" class="form-control" >
+							</div>
 
-									</select>
-									</div>
-								</div>
-
-																
-								<div class="col-xs-3">
+							<div class="row">						
+								<div class="col-md-3">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Estado</label>
-										<select name="Estado" id="Estado" class="form-control" >
-											<option value="">Select...</option>
+										<label for="exampleInputEmail1">Estado</label><br>
+										<select name="Estado" id="Estado" class="form-control" style="width:80%;display:inline-block;">
+											<option value="">Seleccionar...</option>
 											<option value="1" >Nueva</option>
 											<option value="3" >Pendiente</option>
 											<option value="2" >Programada</option>
 											<option value="5" >Cerrada</option>
 											<option value="4" >Cancelada</option>
 										</select>
+										<button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 									</div>
 								</div>
 
-							<div class="row">
-								<div class="col-xs-2">
+								<div class="col-md-3">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Fecha inicio</label>
 
-<script>
-	$( function() {
-		$( "#fechaInicio" ).datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'yy-mm-dd'
-		});
-	});
-</script>
+										<script>
+											$( function() {
+												$( "#fechaInicio" ).datepicker({
+													changeMonth: true,
+													changeYear: true,
+													dateFormat: 'yy-mm-dd'
+												});
+											});
+										</script>
 
-<input type="text" class="form-control" id="fechaInicio" name="fechaInicio" value="<?php if($_POST) { echo $this->input->post('fechaInicio'); }  ?>" placeholder="Fecha inicio" />
+										<input style="width:80%;display:inline-block;" type="text" class="form-control" id="fechaInicio" name="fechaInicio" value="<?php if($_POST) { echo $this->input->post('fechaInicio'); }  ?>" placeholder="Fecha inicio" />
 										
 									</div>
 								</div>
 									
-								<div class="col-xs-2">
+								<div class="col-md-3">
 									<div class="form-group">
-										<label for="exampleInputPassword1">Fecha fin</label>
-<script>
-	$( function() {
-		$( "#fechaFin" ).datepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'yy-mm-dd'
-		});
-	});
-</script>
+										<label for="exampleInputPassword1"></label><br>
+										<script>
+											$( function() {
+												$( "#fechaFin" ).datepicker({
+													changeMonth: true,
+													changeYear: true,
+													dateFormat: 'yy-mm-dd'
+												});
+											});
+										</script>
 
-<input type="text" class="form-control" id="fechaFin" name="fechaFin" value="<?php if($_POST) { echo $this->input->post('fechaFin'); }  ?>" placeholder="Fecha fin" />
+										<input style="width:80%;display:inline-block;" type="text" class="form-control" id="fechaFin" name="fechaFin" value="<?php if($_POST) { echo $this->input->post('fechaFin'); }  ?>" placeholder="Fecha fin" />
+
+										<button style="display:inline-block;padding:5px;" type="submit" id="btnSubmit" name="btnSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 									</div>
 								</div>
 
@@ -147,14 +164,14 @@ if(count($PERIODOS) != 1){
 						</div>
 
 
-							<div class="box-footer">
+							<!--<div class="box-footer">
 
 							<button type="submit" id="btnSubmit" name="btnSubmit" class='btn btn-primary'>
 									Buscar Tutoría <span class="glyphicon glyphicon-search" aria-hidden="true">
 							</button>	
 
 
-							</div>			
+							</div>-->	
 											
 						</div>
 						<!-- /.box-body -->
@@ -224,7 +241,7 @@ if(count($PERIODOS) != 1){
 					}
 						
 				?>
-					<div class="col-lg-6 col-xs-6">
+					<div class="col-md-6 col-md-6">
 						<!-- small box -->
 						<div class="small-box <?php echo $estilos; ?>">
 							<div class="inner">
@@ -266,29 +283,29 @@ if(count($PERIODOS) != 1){
 							?>
 							
 
-	<div class="btn-group">
-	
-<?php if($bandera){ ?>
-		<a href="<?php echo base_url('tutorias/modificar/' . $lista['id_tutorias_principal']); ?>" class="btn btn-success btn-xs">Modificar <i class="fa fa-edit"></i></a>
-<?php } ?>
-		
-<?php if($numero_inscritos > 0){ ?>
-		<a href="<?php echo base_url('tutorias/inscritos/' . $lista['id_tutorias_principal']); ?>" class="btn btn-info btn-xs">Ver inscritos <i class="fa fa-eye"></i></a>
-<?php }
+					<div class="btn-group">
+								
+							<?php if($bandera){ ?>
+									<a href="<?php echo base_url('tutorias/modificar/' . $lista['id_tutorias_principal']); ?>" class="btn btn-success btn-xs">Modificar <i class="fa fa-edit"></i></a>
+							<?php } ?>
+									
+							<?php if($numero_inscritos > 0){ ?>
+									<a href="<?php echo base_url('tutorias/inscritos/' . $lista['id_tutorias_principal']); ?>" class="btn btn-info btn-xs">Ver inscritos <i class="fa fa-eye"></i></a>
+							<?php }
 
-	if($estadoTutoria != 5){
- ?>
+								if($estadoTutoria != 5){
+							 ?>
 
-		<button type="button" id="<?php echo $lista['id_tutorias_principal']; ?>" class="btn btn-danger btn-xs"> Cancelar <i class="fa fa-trash"></i></button>
-		
-<?php } ?>
-		
-	</div>
+									<button type="button" id="<?php echo $lista['id_tutorias_principal']; ?>" class="btn btn-danger btn-xs"> Cancelar <i class="fa fa-trash"></i></button>
+									
+							<?php } ?>
+									
+								</div>
 							
 							<?php }elseif($estadoTutoria == 4){ ?>
 							
 							
-<div class="small-box-footer">Cancelada </div>
+						<div class="small-box-footer">Cancelada </div>
 							<?php } ?>
 							
 						</div>

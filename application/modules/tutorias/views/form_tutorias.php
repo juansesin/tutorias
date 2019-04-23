@@ -1,5 +1,7 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/tutorias/ajaxEscuela.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/tutorias/tutorias_v2.js"); ?>"></script>
+<link href="vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
+<script src="vendor/select2/dist/js/select2.min.js"></script>
 <script>
 function valid_dias() 
 {
@@ -78,8 +80,8 @@ if(count($PERIODOS) != 1){
 			  
                 <div class="form-group">
                   <label for="exampleInputEmail1">Sede</label>
-					<select name="Sede" id="Sede" class="form-control" >
-						<option value=''>Select...</option>
+					<select name="Sede" id="Sede" class="form-control select2" >
+						<option value=''>Seleccionar...</option>
 						<?php for ($i = 0; $i < count($SEDE); $i++) { ?>
 							<option value="<?php echo $SEDE[$i]["ID_SEDE"]; ?>" <?php if($information[0]["fk_sede"] == $SEDE[$i]["ID_SEDE"]) { echo "selected"; }  ?>><?php echo $SEDE[$i]["NOMBRE_SEDE"]; ?></option>	
 						<?php } ?>
@@ -87,21 +89,21 @@ if(count($PERIODOS) != 1){
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Escuela</label>
-					<select name="Escuela" id="Escuela" class="form-control" >
+					<select name="Escuela" id="Escuela" class="form-control select2" >
 
 					</select>
                 </div>
 				
                 <div class="form-group">
                   <label for="exampleInputPassword1">Docente</label>
-					<select name="Docente" id="Docente" class="form-control" >
+					<select name="Docente" id="Docente" class="form-control select2" >
 
 					</select>
                 </div>
 				
                 <div class="form-group">
                   <label for="exampleInputPassword1">Lugar</label>
-					<select name="Lugar" id="Lugar" class="form-control" >
+					<select name="Lugar" id="Lugar" class="form-control select2" >
 
 					</select>
                 </div>
@@ -115,8 +117,8 @@ if(count($PERIODOS) != 1){
 				
                 <div class="form-group">
                   <label for="exampleInputPassword1">Cantidad máxima de estudiantes</label>
-					<select name="max_estudiante" id="max_estudiante" class="form-control">
-						<option value="">Select...</option>
+					<select name="max_estudiante" id="max_estudiante" class="form-control select2">
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 1; $i <= 24; $i++) { ?>
 							<option value='<?php echo $i; ?>' <?php if ($information && $i == $information[0]["tutorias_dias"]) { echo 'selected="selected"'; } ?> ><?php echo $i; ?></option>
 						<?php } ?>
@@ -150,8 +152,8 @@ if(count($PERIODOS) != 1){
 
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_minimo_lunes" id="horario_minimo_lunes" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_minimo_lunes" id="horario_minimo_lunes" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -165,8 +167,8 @@ if(count($PERIODOS) != 1){
 					</select>
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_maximo_lunes" id="horario_maximo_lunes" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_maximo_lunes" id="horario_maximo_lunes" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -195,8 +197,8 @@ if(count($PERIODOS) != 1){
 
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_minimo_martes" id="horario_minimo_martes" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_minimo_martes" id="horario_minimo_martes" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -210,8 +212,8 @@ if(count($PERIODOS) != 1){
 					</select>
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_maximo_martes" id="horario_maximo_martes" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_maximo_martes" id="horario_maximo_martes" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -236,12 +238,12 @@ if(count($PERIODOS) != 1){
 <?php if($PERIODOS[0]['miercoles']==1){ ?>
                 <div class="col-xs-4">
 				
-<input type="checkbox" id="miercoles" name="miercoles" value=1 <?php if($information && $information[0]["miercoles"]){echo "checked";} ?> onclick="valid_dias()"> Miercoles<br>
+<input type="checkbox" id="miercoles" name="miercoles" value=1 <?php if($information && $information[0]["miercoles"]){echo "checked";} ?> onclick="valid_dias()"> Miércoles<br>
 
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_minimo_miercoles" id="horario_minimo_miercoles" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_minimo_miercoles" id="horario_minimo_miercoles" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -255,8 +257,8 @@ if(count($PERIODOS) != 1){
 					</select>
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_maximo_miercoles" id="horario_maximo_miercoles" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_maximo_miercoles" id="horario_maximo_miercoles" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -285,8 +287,8 @@ if(count($PERIODOS) != 1){
 
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_minimo_jueves" id="horario_minimo_jueves" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_minimo_jueves" id="horario_minimo_jueves" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -300,8 +302,8 @@ if(count($PERIODOS) != 1){
 					</select>
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_maximo_jueves" id="horario_maximo_jueves" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_maximo_jueves" id="horario_maximo_jueves" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -330,8 +332,8 @@ if(count($PERIODOS) != 1){
 
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_minimo_viernes" id="horario_minimo_viernes" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_minimo_viernes" id="horario_minimo_viernes" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -345,8 +347,8 @@ if(count($PERIODOS) != 1){
 					</select>
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_maximo_viernes" id="horario_maximo_viernes" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_maximo_viernes" id="horario_maximo_viernes" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -372,12 +374,12 @@ if(count($PERIODOS) != 1){
 <?php if($PERIODOS[0]['sabado']==1){ ?>
                 <div class="col-xs-4">
 				
-<input type="checkbox" id="sabado" name="sabado" value=1 <?php if($information && $information[0]["sabado"]){echo "checked";} ?> onclick="valid_dias()"> Sabado<br>
+<input type="checkbox" id="sabado" name="sabado" value=1 <?php if($information && $information[0]["sabado"]){echo "checked";} ?> onclick="valid_dias()"> Sábado<br>
 
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_minimo_sabado" id="horario_minimo_sabado" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_minimo_sabado" id="horario_minimo_sabado" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 
@@ -391,8 +393,8 @@ if(count($PERIODOS) != 1){
 					</select>
                 </div>
                 <div class="col-xs-4">
-					<select name="horario_maximo_sabado" id="horario_maximo_sabado" class="form-control" >
-						<option value="">Select...</option>
+					<select name="horario_maximo_sabado" id="horario_maximo_sabado" class="form-control select2" >
+						<option value="">Seleccionar...</option>
 						<?php for ($i = 0; $i < count($horas); $i++) { ?>
 							<option value="<?php echo $horas[$i]["id_hora"]; ?>" 
 							<?php 

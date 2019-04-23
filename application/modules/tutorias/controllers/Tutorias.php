@@ -85,27 +85,7 @@ class Tutorias extends CI_Controller {
 			$sabado_inicio = $this->input->post('horario_minimo_sabado');
 			$sabado_fin = $this->input->post('horario_maximo_sabado');
 						
-			$errores = false;
-			if((!empty($lunes_inicio) && !empty($lunes_fin)) && $lunes_inicio == $lunes_fin){
-				$errores = true;
-			}
-			if((!empty($martes_inicio) && !empty($martes_fin)) && $martes_inicio == $martes_fin){
-				$errores = true;
-			}
-			if((!empty($miercoles_inicio) && !empty($miercoles_fin)) && $miercoles_inicio == $miercoles_fin){
-				$errores = true;
-			}
-			if((!empty($jueves_inicio) && !empty($jueves_fin)) && $jueves_inicio == $jueves_fin){
-				$errores = true;
-			}
-			if((!empty($viernes_inicio) && !empty($viernes_fin)) && $viernes_inicio == $viernes_fin){
-				$errores = true;
-			}
-			if((!empty($sabado_inicio) && !empty($sabado_fin)) && $sabado_inicio == $sabado_fin){
-				$errores = true;
-			}
-						
-			if ($idTutoria = $this->tutorias_model->saveTutoria() && !$errores ) 
+			if ($idTutoria = $this->tutorias_model->saveTutoria()) 
 			{
 				//GUARDO ASIGNATURAS DE LA Tutorias
 				$asignaturas = $this->input->post('Asignaturas');
@@ -255,7 +235,9 @@ class Tutorias extends CI_Controller {
 						}
 					}
 					
-				}				
+				}
+				
+				
 				$data["result"] = true;
 				$data["idRecord"] = $idTutoria;
 				$this->session->set_flashdata('retornoExito', 'Se guardó la información');
@@ -480,25 +462,18 @@ class Tutorias extends CI_Controller {
 			$infoTutoria = $this->general_model->get_tutorias($arrParam);
 			if($infoTutoria){
 				$fechaTutoria = $infoTutoria[0]['fecha_tutoria'];
-				$errores = false;
-				if(!$this->input->post('fecha') > $fechaTutoria){
-					$this->session->set_flashdata('retornoError', '<strong>¡ERROR EN LA FECHA!</strong> La oferta de tutorías debe ser programada con un mínimo de 24 horas de anticipación.');
-					$errores = true;
-				}
-				if($this->input->post('horarioInicio') == $this->input->post('horarioFin')){
-					$this->session->set_flashdata('retornoError', '<strong>¡ERROR EN LA HORA!</strong> Valide que la hora de inicio y la hora fin, sean diferentes');
-					$errores = true;
-				}
-				if(!$errores){
+				if($this->input->post('fecha') > $fechaTutoria){
 					if ($idTutoria = $this->tutorias_model->updateTutoria()) 
 					{				
 						$data["result"] = true;
 						$data["idRecord"] = $idTutoria;
 						$this->session->set_flashdata('retornoExito', 'Se guardó la información');
 					} else {
-						$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Contáctese con el administrador');
+						$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help, contact the Admin.');
 					}
-				}				
+				}else{
+					$this->session->set_flashdata('retornoError', '<strong>¡ERROR EN FECHA Y/O HORA!</strong> La tutoría se debe programar con 24 horas de anticipación');
+				}
 			}else{				
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> No existe la tutoria.'); 
 			}
@@ -510,11 +485,11 @@ class Tutorias extends CI_Controller {
 	 * Se debe actualizar tabla de tutorias principal, actualizar el estado
      * @since 23/3/2019
 	 */
-	public function cancelar_tutoria()
+	public function cancelar_tutoria($idTutoria)
 	{			
 			header('Content-Type: application/json');
 						
-			if ($this->tutorias_model->updateTutoriaCancelar()) 
+			if ($this->tutorias_model->updateTutoriaCancelar($idTutoria)) 
 			{								
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', 'Se canceló la Tutoría.');
@@ -523,7 +498,6 @@ class Tutorias extends CI_Controller {
 				$data["mensaje"] = "Error!!! Contactarse con el Administrador.";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Contactarse con el Administrador.');
 			}				
-
 			echo json_encode($data);
     }
 	
@@ -534,9 +508,7 @@ class Tutorias extends CI_Controller {
 	 */
 	public function inscritos($idTutoria)
 	{						
-			$arrParam = array(
-							"idTutoria" => $idTutoria
-						);
+			$arrParam = array("idTutoria" => $idTutoria);
 			$data['info'] = $this->general_model->get_tutorias($arrParam);
 			
 			//listado de inscritos

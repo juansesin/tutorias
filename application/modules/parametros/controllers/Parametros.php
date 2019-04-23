@@ -291,8 +291,12 @@ class Parametros extends CI_Controller {
 			$data['information'] = FALSE;
 			$data["idTema"] = $this->input->post("idTema");	
 			
-			$arrParam = array();
-			$data['asignatura'] = $this->general_model->get_asignaturas($arrParam);//asignaturas list
+				$arrParam = array(
+				"table" => "param_asignaturas",
+				"order" => "asignaturas",
+				"id" => "x"
+			);
+			$data['asignatura'] = $this->general_model->get_basic_search($arrParam);//asignaturas list
 			
 			if ($data["idTema"] != 'x') {
 				$arrParam = array("idTema" => $data["idTema"]);

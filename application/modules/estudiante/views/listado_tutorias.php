@@ -4,6 +4,7 @@
 	<section class="content-header">
 		<h1>
 			Listado de Tutorías
+			
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -23,7 +24,7 @@
 				<div class="col-lg-12 col-xs-12">
 					<div class="callout callout-danger">
 						<h4>Información</h4>
-						<p>No hay Tutorías con los filtros seleccionados.</p>
+						<p>No hay tutorías con los filtros seleccionados.</p>
 					</div>
 				</div>
 			
@@ -52,11 +53,11 @@
 					// JSJL Ajuste para que no se puedan inscribir en el mismo horario
 					if($tutoriaConDocente == 1){
 						$bandera = false; //no se puede inscribir porque ya empezo la tutoria
-						$mensaje = "No es posible inscribirse. Ya tiene una tutoría inscrita con este docente. ";
+						$mensaje = "No es posible inscribirse. Ya tiene una solicitud de tutoría con este docente.";
 					}
 					elseif($fechaActual > $fechaTutoriaInicio && $lista["estado_tutoria"] == 1){
 						$bandera = false; //no se puede inscribir porque ya empezo la tutoria
-						$mensaje = "No es posible inscribirse. Ya inicio la Tutoría. ";
+						$mensaje = "No es posible inscribirse. Ya inició la Tutoría. ";
 					}
 					// JSJL Ajuste para que no se puedan inscribir con menos de 24 horas de antelación
 					elseif($fechaActual > $fechaUnDiasDespues && $lista["estado_tutoria"] == 1){
@@ -78,7 +79,7 @@
 					}
 					
 					if($lista["estado_tutoria"] == 5 ){
-						$bandera = false; //no se puede inscribir ya se lleno el cupo de la tutoria
+						$bandera = false; //no se puede inscribir la tutoria esta cerrada
 						$mensaje = "No es posible inscribirse. La Tutoría se encuentra cerrada. ";
 					}
 					
@@ -110,11 +111,11 @@
 				//si es diferente de 4(CANCELADA) SE MUESTRA
 				// JSJL agrego condicion para que no muestre las tutorias de un profesor si el estudiante ya tiene una tutpria con él o ya tiene tutoría en ese horario
 				// JSJL if($lista["estado_tutoria"] != 4){
-					if($lista["estado_tutoria"] != 4 and $tutoriaConDocente != 1 and $tutoriaEnHorario != 1){
+					//if($lista["estado_tutoria"] != 4 and $tutoriaConDocente != 1 and $tutoriaEnHorario != 1){
 				// JSJL agrego condicion para que no muestre las tutorias de un profesor si el estudiante ya tiene una tutpria con él o ya tiene tutoría en ese horario
 						
 				?>
-					<div class="col-lg-6 col-xs-6">
+					<div class="col-md-6 col-md-6">
 						<!-- small box -->
 						<div class="small-box <?php echo $estilos; ?>">
 							<div class="inner">
@@ -160,7 +161,7 @@
 						</div>
 					</div>
 				<?php
-					}
+					//}
 				endforeach;
 				
 			}

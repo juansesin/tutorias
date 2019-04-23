@@ -1,5 +1,19 @@
 $( document ).ready( function () {
-			
+	
+			var $select = $('select').select2({
+			       placeholder: 'Seleccionar',
+			       allowClear: true
+			});
+
+			 /*
+			  * When you change the value the select via select2, it triggers
+			  * a 'change' event, but the jquery validation plugin
+			  * only re-validates on 'blur'
+			  */
+			$select.on('change', function() {
+					$(this).trigger('blur');
+			});
+
 	$( "#form" ).validate( {
 		rules: {
 			Sede:				{ required: true },

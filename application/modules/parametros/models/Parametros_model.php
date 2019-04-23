@@ -17,7 +17,8 @@
 					'first_name' => $this->input->post('first_name'),
 					'movil' => $this->input->post('movil'),
 					'state' => $this->input->post('state'),
-					'email' => $this->input->post('email')
+					'email' => $this->input->post('email'),
+					'perfil' => $this->input->post('perfil')
 				);
 				
 				//revisar si es para adicionar o editar

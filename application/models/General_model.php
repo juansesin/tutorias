@@ -166,6 +166,25 @@ class General_model extends CI_Model {
     }
 	
     /**
+     * MOtivosCancelaciones
+     * Modules: MOtivosCancelaciones
+     * @since 13/3/2019
+     */
+    public function get_motivosCancelaciones($arrData) 
+    {
+        $this->db->select("*");
+        
+        $this->db->order_by('motivocancelacion', 'asc');
+        $query = $this->db->get('motivocancelacion');
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }   
+
+    /**
      * periodos
      * Modules: Parametros
      * @since 13/3/2019
@@ -311,6 +330,14 @@ class General_model extends CI_Model {
 		if (array_key_exists("idAsignatura", $arrData) && $arrData["idAsignatura"] != '') {
             $this->db->where('T.fk_tp_id_param_asignaturas', $arrData["idAsignatura"]);
         }
+
+        if (array_key_exists("fechaInicio", $arrData) && $arrData["fechaInicio"] != '') {
+            $this->db->where('T.fecha_tutoria >=', $arrData["fechaInicio"]);
+        }
+        
+        if (array_key_exists("fechaFin", $arrData) && $arrData["fechaFin"] != '') {
+            $this->db->where('T.fecha_tutoria <=', $arrData["fechaFin"]);
+        }   
 		
 		if (array_key_exists("Estado", $arrData) && $arrData["Estado"] != '') {
             $this->db->where('T.estado_tutoria', $arrData["Estado"]);
@@ -531,7 +558,7 @@ class General_model extends CI_Model {
             $this->db->where('T.estado_tutoria', $arrData["Estado"]);
         }
 		
-		$this->db->order_by("fecha_tutoria", "DESC");
+		$this->db->order_by("fecha_tutoria", "ASC");
 		$query = $this->db->get('docente_x_user M');
 
         if ($query->num_rows() > 0) {

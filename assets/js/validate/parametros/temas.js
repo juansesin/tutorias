@@ -1,5 +1,5 @@
 $( document ).ready( function () {
-	
+
 	$( "#form" ).validate( {
 		rules: {
 			asignatura:				{ required: true },

@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/cancelar_tutoria.js"); ?>"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/cancelar_docente.js"); ?>"></script>
+<link href="vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
+<script src="vendor/select2/dist/js/select2.min.js"></script>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -49,7 +51,7 @@ if(count($PERIODOS) != 1){
 						<div class="box-body">
 
 							<div class="row">
-								<div class="col-xs-2">
+								<div class="col-md-2">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Fecha inicio</label>
 
@@ -68,7 +70,7 @@ if(count($PERIODOS) != 1){
 									</div>
 								</div>
 									
-								<div class="col-xs-2">
+								<div class="col-md-2">
 									<div class="form-group">
 										<label for="exampleInputPassword1">Fecha fin</label>
 <script>
@@ -85,13 +87,14 @@ if(count($PERIODOS) != 1){
 									</div>
 								</div>
 								
-								<div class="col-xs-3">
+								<div class="col-md-3">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Estado</label>
 										<select name="Estado" id="Estado" class="form-control" >
 											<option value="">Select...</option>
 											<option value=1 >Nueva</option>
 											<option value=2 >Pendiente/Programada</option>
+											<option value=4 >Cancelada</option>
 											<option value=5 >Cerrada</option>
 										</select>
 									</div>
@@ -179,7 +182,7 @@ if(count($PERIODOS) != 1){
 					}
 						
 				?>
-					<div class="col-lg-6 col-xs-6">
+					<div class="col-md-6 col-md-6">
 						<!-- small box -->
 						<div class="small-box <?php echo $estilos; ?>">
 							<div class="inner">
@@ -229,7 +232,9 @@ if(count($PERIODOS) != 1){
  if($estadoTutoria != 5){
 	?>
    
-		   <button type="button" id="<?php echo $lista['id_tutorias_principal']; ?>" class="btn btn-danger btn-xs"> Cancelar <i class="fa fa-trash"></i></button>
+		<!--<a href="<?php //echo base_url('cancelar_modal/' . $lista['id_tutorias_principal']); ?>" class="btn btn-info btn-xs"> Cancelar <i class="fa fa-eye"></i></a> -->
+		<a data-target="#modalCancelar<?php echo $lista['id_tutorias_principal'];?>" data-toggle="modal" title="Cancelar tutoría" class="MainNavText" id="MainNavHelp" href="#myModal<?php echo $lista['id_tutorias_principal'];?>"><i class="fa fa-trash" style="float:right; color:white;"></i></a>
+		   <!--<button type="button" id="<?php echo $lista['id_tutorias_principal']; ?>" class="btn btn-danger btn-xs"> Cancelar <i class="fa fa-trash"></i></button>-->
 		   
    <?php } ?>
 
@@ -247,6 +252,29 @@ if(count($PERIODOS) != 1){
 							
 						</div>
 					</div>
+				<div class="modal fade bd-example-modal-sm" id="modalCancelar<?php echo $lista['id_tutorias_principal'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Cancelar tutoría</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                                Elija el motivo de cancelación:<br>
+					<select>
+              					<option>test</option>
+         				     	<option>test</option>
+              					<option>test</option>
+          				</select><br>
+                                                ¿Está seguro de cancelar esta tutoría?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-primary" onclick="window.location.href='<?php echo base_url();?>/tutorias/cancelar_tutoria/<?php echo $lista['id_tutorias_principal'];?>'">Cancelar tutoría</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 				<?php
 				endforeach;
 				

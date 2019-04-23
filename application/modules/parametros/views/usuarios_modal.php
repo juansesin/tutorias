@@ -61,6 +61,15 @@
 			</div>			
 		</div>
 				
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group text-left">
+					<label class="control-label" for="movil">Perfil</label>
+					<input type="text" class="form-control" id="perfil" name="perfil" value="<?php echo $information?$information[0]["perfil"]:""; ?>" placeholder="Perfil" required />
+				</div>
+			</div>
+		</div>
+				
 		<div class="form-group">
 			<div id="div_load" style="display:none">		
 				<div class="progress progress-striped active">
