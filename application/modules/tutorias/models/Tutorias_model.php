@@ -128,12 +128,13 @@
 		 * Actualizar datos de la tutoria, se cancela un estudiante
 		 * @since 12/3/2019
 		 */
-		public function updateTutoriaCancelar($idTutoria) 
+		public function updateTutoriaCancelar($idTutoria,$idMotivoCancelacion) 
 		{				
 				//$idTutoria = $this->input->post('identificador');
 		
 				$data = array(
-					'estado_tutoria' => 4
+					'estado_tutoria' => 4,
+					'fk_id_motivo_cancelacion' => $idMotivoCancelacion
 				);
 				
 				$this->db->where('id_tutorias_principal', $idTutoria);

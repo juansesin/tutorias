@@ -485,11 +485,13 @@ class Tutorias extends CI_Controller {
 	 * Se debe actualizar tabla de tutorias principal, actualizar el estado
      * @since 23/3/2019
 	 */
-	public function cancelar_tutoria($idTutoria)
+	public function cancelar_tutoria($idTutoria,$idMotivoCancelacion)
 	{			
 			header('Content-Type: application/json');
+			//$idMotivoCancelacion = $this->input->post('motivoCancelacion');
+			//die(print_r($idMotivoCancelacion));	
 						
-			if ($this->tutorias_model->updateTutoriaCancelar($idTutoria)) 
+			if ($this->tutorias_model->updateTutoriaCancelar($idTutoria,$idMotivoCancelacion)) 
 			{								
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', 'Se canceló la Tutoría.');
@@ -498,7 +500,8 @@ class Tutorias extends CI_Controller {
 				$data["mensaje"] = "Error!!! Contactarse con el Administrador.";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Contactarse con el Administrador.');
 			}				
-			echo json_encode($data);
+			//echo json_encode($data);
+			redirect(base_url('docente'), 'refresh');
     }
 	
 	/**

@@ -174,11 +174,11 @@ class General_model extends CI_Model {
     {
         $this->db->select("*");
         
-        $this->db->order_by('motivocancelacion', 'asc');
-        $query = $this->db->get('motivocancelacion');
+        $this->db->order_by('id_motivo_cancelacion', 'asc');
+        $query = $this->db->get('motivo_cancelacion');
 
         if ($query->num_rows() > 0) {
-            return $query->result_array();
+            return $query->result();
         } else {
             return false;
         }

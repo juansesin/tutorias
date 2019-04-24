@@ -29,10 +29,6 @@ if(count($PERIODOS) != 1){
 <?php
 }else{
 ?>
-
-
-
-
 		<div class="row">
 		<!-- left column -->
 
@@ -82,7 +78,15 @@ if(count($PERIODOS) != 1){
 		});
 	});
 </script>
-
+<script type="text/javascript">
+    function selectValue(url,id){
+	var obj = document.getElementById("motivoCancelacion"+id);
+        var motivo = obj.options[obj.selectedIndex];
+        if (motivo.value != ""){
+            window.location = url +'/'+ motivo.value;
+        }
+    }
+</script>
 <input type="text" class="form-control" id="fechaFin" name="fechaFin" value="<?php if($_POST) { echo $this->input->post('fechaFin'); }  ?>" placeholder="Fecha fin" />
 									</div>
 								</div>
@@ -230,9 +234,8 @@ if(count($PERIODOS) != 1){
 		<a href="<?php echo base_url('docente/inscritos/' . $lista['id_tutorias_principal']); ?>" class="btn btn-info btn-xs">Ver inscritos <i class="fa fa-eye"></i></a>
 <?php }
  if($estadoTutoria != 5){
-	?>
    
-		<!--<a href="<?php //echo base_url('cancelar_modal/' . $lista['id_tutorias_principal']); ?>" class="btn btn-info btn-xs"> Cancelar <i class="fa fa-eye"></i></a> -->
+	?>
 		<a data-target="#modalCancelar<?php echo $lista['id_tutorias_principal'];?>" data-toggle="modal" title="Cancelar tutoría" class="MainNavText" id="MainNavHelp" href="#myModal<?php echo $lista['id_tutorias_principal'];?>"><i class="fa fa-trash" style="float:right; color:white;"></i></a>
 		   <!--<button type="button" id="<?php echo $lista['id_tutorias_principal']; ?>" class="btn btn-danger btn-xs"> Cancelar <i class="fa fa-trash"></i></button>-->
 		   
@@ -253,7 +256,7 @@ if(count($PERIODOS) != 1){
 						</div>
 					</div>
 				<div class="modal fade bd-example-modal-sm" id="modalCancelar<?php echo $lista['id_tutorias_principal'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-sm">
+                                <div class="modal-dialog modal-md">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -261,23 +264,27 @@ if(count($PERIODOS) != 1){
                                         </div>
                                         <div class="modal-body">
                                                 Elija el motivo de cancelación:<br>
-					<select>
-              					<option>test</option>
-         				     	<option>test</option>
-              					<option>test</option>
-          				</select><br>
+					<form><select id="motivoCancelacion<?php echo $lista['id_tutorias_principal'];?>">
+					<?php
+						$arrData = '';
+						$motivosCancelacion = $this->general_model->get_motivosCancelaciones($arrData);
+						foreach ($motivosCancelacion as $row):
+                					echo '<option value="'.$row->id_motivo_cancelacion.'">'.$row->motivo_cancelacion.'</option>';
+        					endforeach;
+					?>
+          				</select></form><br>
                                                 ¿Está seguro de cancelar esta tutoría?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                            <button type="button" class="btn btn-primary" onclick="window.location.href='<?php echo base_url();?>/tutorias/cancelar_tutoria/<?php echo $lista['id_tutorias_principal'];?>'">Cancelar tutoría</button>
+                                            <button type="button" class="btn btn-primary" onclick="selectValue('<?php echo base_url();?>tutorias/cancelar_tutoria/<?php echo $lista['id_tutorias_principal'];?>','<?php echo $lista['id_tutorias_principal'];?>')">Cancelar tutoría</button>
+                                            <!--<button type="button" class="btn btn-primary" onclick="window.location.href='<?php //echo base_url();?>/tutorias/cancelar_tutoria/<?php //echo $lista['id_tutorias_principal'];?>'">Cancelar tutoría</button>-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
 				<?php
 				endforeach;
-				
 			}
 			?>
 		
