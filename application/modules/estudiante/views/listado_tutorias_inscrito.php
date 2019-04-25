@@ -1,5 +1,6 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/estudiante/cancelar.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/estudiante/calificar.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/estudiante/asistencia.js"); ?>"></script>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -117,18 +118,19 @@ if(!$info)
 								//si ya empezo no puede cancelar la inscripcion
 								$fechaTutoriaInicio = $lista["fecha_tutoria"] . " " . $lista['formato_minimo'];					
 								$fechaTutoriaInicio = date_create($fechaTutoriaInicio);
+								//si ya terminó no puede cancelar la inscripcion
+								$fechaTutoriaFin = $lista["fecha_tutoria"] . " " . $lista['formato_maximo'];					
+								$fechaTutoriaFin = date_create($fechaTutoriaFin);
 
 								$fechaActual = date_create(date('Y-m-d G:i'));
 								
 								if($fechaActual > $fechaTutoriaInicio){
 									$bandera = false; //no se cancelar porque ya empezo la tutoria
 									$mensaje = "Ya inició la Tutoría.";
-									
-									if($lista["estado_tutoria"] != 4 && $lista["asistencia"] == 1){
+									if($lista["estado_tutoria"] != 4 && $lista["asistencia"] == 1 && $lista["asistencia_docente"] != 0){
 										$banderaIniciada = true;//si esta iniciada y NO esta cancelada (y no esta cerrada entonces puede calificar al docente; se elimina esta condición)
 										$mensaje = "Tutoría perdiente por calificar";
 									}
-									
 								}
 								
 								if($lista["estado_tutoria"] == 5 ){
@@ -148,14 +150,24 @@ if(!$info)
 								if($bandera){
 								?>
 																
+		<form id="formCancelar" role="form">
 		<button type="button" id="<?php echo $lista['id_tutorias_principal']; ?>" class='btn btn-danger'>
 				<i class="fa fa-trash-o"></i> Cancelar inscripción 
 		</button>
+		</form>
 		
-								<?php }else{ ?>
+								<?php }else{
+			if (!$lista["asistencia_docente"] != 1 ) {
+		?>
+		<form id="formAsistencia" role="form">
+		<button type="button" id="<?php echo $lista['id_tutorias_principal']; ?>" class='btn btn-default'>
+				<i class="fa fa-check"></i> ¿No asistió el profesor? 
+		</button><hr>
+		</form>
+		<?php } ?>
 		<div class="alert alert-danger alert-dismissible">
 		<h4><i class="icon fa fa-ban"></i> Atención!</h4>
-		<?php echo $mensaje; ?>
+		<?php echo $mensaje;  ?>
 		</div>
 								<?php } ?>
 								

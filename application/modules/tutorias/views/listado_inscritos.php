@@ -219,18 +219,32 @@ Asistencia
 							<h3 class="box-title">OBSERVACIONES</h3>
 						</div>
 						
-						<div class="box-body">
-							<div class="form-group">
-								<textarea id="observaciones" name="observaciones" class="form-control" rows="3"><?php echo $info[0]['observaciones'] ?></textarea>
-							</div>
-						</div>
+						
+						
 						
 						<div class="box-footer">
 							<button type="submit" id="btnSubmit2" name="btnSubmit2" class='btn btn-primary'>
 									Cerrar Tutoría <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
 							</button>	
 						</div>	
-						
+</form>
+<form  name="observaciones" id="observaciones" method="post" action="<?php echo base_url("tutorias/update_asistencia_observaciones"); ?>">
+	<input type="hidden" id="hddIdTutoriaPrincipal" name="hddIdTutoriaPrincipal" value="<?php echo $info[0]["id_tutorias_principal"]; ?>"/>
+						<div class="box-body">
+							<div class="form-group">
+								<textarea id="observaciones" name="observaciones" class="form-control" rows="3" readonly><?php echo $info[0]['observaciones'] ?></textarea>
+							</div>
+						</div>
+						<div class="box-body">
+							<div class="form-group">
+								<textarea id="observaciones2" name="observaciones2" class="form-control" rows="3"></textarea>
+							</div>
+						</div>
+						<div class="box-footer">
+							<button type="submit" id="btnSubmit2" name="btnSubmit2" class='btn btn-primary'>
+									Agregar Observaciones <span class="" aria-hidden="true">
+							</button>	
+						</div>	
 </form>
 						
 					</div>

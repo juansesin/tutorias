@@ -478,7 +478,7 @@ class General_model extends CI_Model {
 	{
 		$idUser = $this->session->userdata("id");
 		
-        $this->db->select("T.*, D.NOMBRE, L.direccion, H.hora minimo, H.formato_24 formato_minimo, X.hora maximo, Y.asignaturas, Z.temas, W.calificacion_texto, W.calificacion, W.estado as estadoInscripcion, W.id_tutorias_estudiante");
+        $this->db->select("T.*, D.NOMBRE, L.direccion, H.hora minimo, H.formato_24 formato_minimo, X.hora maximo, X.formato_24 formato_maximo, Y.asignaturas, Z.temas, W.calificacion_texto, W.calificacion, W.estado as estadoInscripcion, W.id_tutorias_estudiante, W.asistencia_docente");
         $this->db->join('tutorias_principal T', 'T.id_tutorias_principal = W.fk_te_id_tutorias_principal', 'INNER');
 		$this->db->join('docente D', 'D.ID_DOCENTE = T.fk_id_docente', 'INNER');
 		$this->db->join('param_lugares L', 'L.id_param_lugares = T.fk_id_lugar', 'INNER');
@@ -572,18 +572,15 @@ class General_model extends CI_Model {
 		 * Actualizar datos de la tutoria, se cierrar tutoria
 		 * @since 27/3/2019
 		 */
-		public function updateTutoriaCerrar() 
+		public function updateAsistenciaObservaciones() 
 		{				
 				$idTutoria = $this->input->post('hddIdTutoriaPrincipal');
 		
-				$data = array(
-					'estado_tutoria' => 5,
-					'observaciones' => $this->input->post('observaciones')
-				);
+				$concatenado = $this->input->post('observaciones')."\n".$this->input->post('observaciones2');
+				$data = array('observaciones' => $concatenado);
 				
 				$this->db->where('id_tutorias_principal', $idTutoria);
 				$query = $this->db->update('tutorias_principal', $data);
-			
 				if ($query) {
 					return true;
 				} else {

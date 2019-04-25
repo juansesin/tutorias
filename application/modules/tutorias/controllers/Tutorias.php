@@ -527,6 +527,28 @@ class Tutorias extends CI_Controller {
      * @since 24/3/2019
      * @author BMOTTAG
 	 */
+	public function update_asistencia_observaciones()
+	{	
+			$idTutoriaPrincipal = $this->input->post('hddIdTutoriaPrincipal');
+	
+			if ($this->general_model->updateAsistenciaObservaciones()) {
+				
+				//actulizo el estado de la tutoria a cerrada y actualizo el campo de observacion
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', "Se actualizaron las observaciones.");
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			redirect(base_url('tutorias/inscritos/' . $idTutoriaPrincipal), 'refresh');
+	}
+
+	/**
+	 * Actualizar asistencia de los estudiantes
+     * @since 24/3/2019
+     * @author BMOTTAG
+	 */
 	public function update_asistencia()
 	{	
 			$idTutoriaPrincipal = $this->input->post('hddIdTutoriaPrincipal');

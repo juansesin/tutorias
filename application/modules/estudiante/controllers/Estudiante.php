@@ -236,6 +236,29 @@ class Estudiante extends CI_Controller {
 	}	
 	
 	/**
+	 * Reportar inasistencia
+	 */
+	public function reportar_inasistencia()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idEstudiante = $this->session->userdata("id");
+			$idTutoria = $this->input->post('identificador');
+			if ($this->estudiante_model->updateTutoriaInasistencia($idTutoria, $idEstudiante)) 
+			{
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', 'Se reportó la inasistencia del profesor.');
+			} else {
+				$data["result"] = "error";
+				$data["mensaje"] = "Error!!! Contactarse con el Administrador.";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Contactarse con el Administrador.');
+			}				
+
+			echo json_encode($data);
+    }
+	
+	/**
 	 * Cancelar inscricion
 	 * Se debe actualizar tabla de TUTORIAS_PRINCIPAL, actualizar el estado y la cantidad de inscritos
 	 * eliminar el registro de la tabla TUTORIAS_ESTUDIANTE

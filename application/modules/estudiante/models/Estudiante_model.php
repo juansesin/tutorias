@@ -76,6 +76,27 @@
 		}
 		
 		/**
+		 * Reportar inasistencia del docente
+		 * @since 12/3/2019
+		 */
+		public function updateTutoriaInasistencia($idTutoria) 
+		{				
+				$data = array(
+					'asistencia_docente' => false
+				);
+				$idEstudiante = $this->session->userdata("id");	
+				$this->db->where('fk_te_id_tutorias_principal', $idTutoria);
+				$this->db->where('fk_te_id_user', $idEstudiante);
+				$query = $this->db->update('tutorias_estudiante', $data);
+			
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+		
+		/**
 		 * Actualizar datos de la tutoria, se cancela un estudiante
 		 * @since 12/3/2019
 		 */
