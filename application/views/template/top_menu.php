@@ -16,14 +16,18 @@
 	}
 	?>
 	
-	
-    <a href="<?php echo $enlace; ?>" class="logo">
-	  <img src="<?php echo base_url("images/logo-mini.png"); ?>" height="50" width="100">
+	<!-- Logo -->
+    <a href="<?php echo $enlace; ?>" class="logo" style="height: 60px;">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><img src="<?php echo base_url("images/favicon.png"); ?>"></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><img src="<?php echo base_url("images/logo-mini.png"); ?>" height="60" width="120"></span>
     </a>
+
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" style="height: 60px;">
         <span class="sr-only">Toggle navigation</span>
       </a>
 	
@@ -35,7 +39,7 @@
         <ul class="nav navbar-nav">
 		
 			<li>
-			  <a href="<?php echo base_url("menu/salir"); ?>">
+			  <a href="<?php echo base_url("menu/salir"); ?>" style="height: 60px;">
 				<i class="fa fa-power-off"></i> <span>Salir</span>
 			  </a>
 			</li>

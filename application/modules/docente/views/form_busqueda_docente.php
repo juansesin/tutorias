@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/cancelar_docente.js"); ?>"></script>
 <link href="vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
 <script src="vendor/select2/dist/js/select2.min.js"></script>

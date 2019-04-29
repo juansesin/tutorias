@@ -20,11 +20,11 @@ $(function(){
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>Parámetros - Escuela</h1>
+		<h1>Parámetros - Escuelas</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li><a href="#">Parámetros</a></li>
-			<li class="active">Escuela</li>
+			<li class="active">Escuelas</li>
 		</ol>
 	</section>
 
@@ -36,7 +36,7 @@ $(function(){
 					<div class="box-header">
 						<br>
 						<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Escuela
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Escuelas
 						</button><br>
 					</div>
 					
@@ -86,12 +86,12 @@ if ($retornoError) {
 							echo "<tr>";
 							echo "<td class='text-center'>";
 						?>
-							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_param_escuela']; ?>" >
+							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['ID_ESCUELA']; ?>" >
 								Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
 							</button>
 						<?php
 							echo "</td>";
-							echo "<td>" . $lista['nombre_escuela'] . "</td>";
+							echo "<td>" . $lista['NOMBRE_ESCUELA'] . "</td>";
 						endforeach;
 						?>
 						</tbody>

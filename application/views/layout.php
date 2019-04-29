@@ -79,13 +79,19 @@
 			<!-- End of content -->
   
 
-<!--   <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>-->
+<footer class="main-footer" style="margin-left: 0px;background: #00437a;">
+   <div class="container">
+      <div class="col-md-2 col-sm-12 col-xs-12"></div>
+
+      <div class="col-md-8 col-sm-12 col-xs-12" align="center">
+          <span style="color: white;">SNIES 1728 - Resolución 16377 del 29 octubre de 1984 y 6423 del 05 de agosto de 2011 - Ministerio de Educación Nacional - Acreditación Institucional - Resolución 590 del 09 de enero de 2015 Vigencia 4 años Institución de Educación Superior sujeta a inspección y vigilancia por el Ministerio de Educación. </span>
+      </div>
+
+      <div class="col-md-2 col-sm-12 col-xs-12" style="padding: 0;">
+       <a href="http://draco.com.co" style="margin-right: 5px;"><img style="margin-top: 10px;" src="https://ptd.usergioarboleda.edu.co/../../assets/img/draco.png" alt="Draco" height="25" class="pull-right"></a>
+       <a href="https://www.usergioarboleda.edu.co/" style="margin-left:5px; "><img src="https://ptd.usergioarboleda.edu.co/../../assets/img/logoUSA-Footer.png" alt="Sergio" height="50" class="pull-right"></a>
+      </div>
+  </footer>
 
 	
   <!-- Add the sidebar's background. This div must be placed

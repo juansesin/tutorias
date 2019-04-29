@@ -16,7 +16,7 @@
 				<div class="form-group text-left">
 					<label for="type" class="control-label">Escuela : *</label>
 					<select name="escuela" id="escuela" class="form-control" >
-						<option value=''>Select...</option>
+						<option value=''>Seleccionar...</option>
 						<?php for ($i = 0; $i < count($ESCUELA); $i++) { ?>
 							<option value="<?php echo $ESCUELA[$i]["ID_ESCUELA"]; ?>" <?php if($information[0]["fk_escuela"] == $ESCUELA[$i]["ID_ESCUELA"]) { echo "selected"; }  ?>><?php echo $ESCUELA[$i]["NOMBRE_ESCUELA"]; ?></option>	
 						<?php } ?>

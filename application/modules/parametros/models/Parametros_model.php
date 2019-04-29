@@ -2,7 +2,116 @@
 
 	class Parametros_model extends CI_Model {
 
-	    		
+		/**
+		 * Add/Edit Escuela por sede
+		 * @since 26/4/2019
+		 * @author SDD
+		 */
+		public function saveEscuelaSede() 
+		{
+				$idEscuelaSede = $this->input->post('hddId');
+				
+				$data = array(
+					'ID_SEDE' => $this->input->post('sede'),
+					'ID_ESCUELA' => $this->input->post('escuela')
+				);
+				
+				//revisar si es para adicionar o editar
+				if ($idEscuelaSede == '') {
+					$query = $this->db->insert('escuelasede', $data);
+					$idEscuelaSede = $this->db->insert_id();				
+				} else {
+					$this->db->where('ID_ESCUELAS_X_SEDE', $idEscuelaSede);
+					$query = $this->db->update('escuelasede', $data);
+				}
+				if ($query) {
+					return $idEscuelaSede;
+				} else {
+					return false;
+				}
+		}
+		
+		/**
+		 * Edit Escuela de un docente
+		 * @since 25/4/2019
+		 * @author SDD
+		 */
+		public function saveDocente() 
+		{
+				$idDocente = $this->input->post('hddId');
+				
+				$data = array(
+					'ID_ESCUELA' => $this->input->post('escuela')
+				);
+				
+				//revisar si es para adicionar o editar
+				if ($idDocente != '') {
+					$this->db->where('ID_DOCENTE', $idDocente);
+					$query = $this->db->update('docente', $data);
+				}
+				if ($query) {
+					return $id;
+				} else {
+					return false;
+				}
+		}
+
+	    /**
+		 * Add/Edit Escuela
+		 * @since 25/4/2019
+		 * @author SDD
+		 */
+		public function saveEscuela() 
+		{
+				$idEscuela = $this->input->post('hddId');
+				
+				$data = array(
+					'NOMBRE_ESCUELA' => $this->input->post('escuela')
+				);
+				
+				//revisar si es para adicionar o editar
+				if ($idEscuela == '') {
+					$query = $this->db->insert('escuela', $data);
+					$idEscuela = $this->db->insert_id();				
+				} else {
+					$this->db->where('ID_ESCUELA', $idEscuela);
+					$query = $this->db->update('escuela', $data);
+				}
+				if ($query) {
+					return $idEscuela;
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Add/Edit Sede
+		 * @since 25/4/2019
+		 * @author SDD
+		 */
+		public function saveSede() 
+		{
+				$idSede = $this->input->post('hddId');
+				
+				$data = array(
+					'NOMBRE_SEDE' => $this->input->post('sede')
+				);
+				
+				//revisar si es para adicionar o editar
+				if ($idSede == '') {
+					$query = $this->db->insert('sede', $data);
+					$idSede = $this->db->insert_id();				
+				} else {
+					$this->db->where('ID_SEDE', $idSede);
+					$query = $this->db->update('sede', $data);
+				}
+				if ($query) {
+					return $idSede;
+				} else {
+					return false;
+				}
+		}
+
 		/**
 		 * Add/Edit Usurio
 		 * @since 12/3/2019

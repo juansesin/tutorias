@@ -265,7 +265,28 @@ class General_model extends CI_Model {
 		}
 		
     /**
-     * Temas
+     * SEDE
+     * Modules: Parametros
+     * @since 25/4/2019
+     * @author SDD
+     */
+    public function get_sede($arrData) 
+	{
+        $this->db->select("S.*");
+        if (array_key_exists("idSede", $arrData)) {
+            $this->db->where('S.ID_SEDE', $arrData["idSede"]);
+        }
+	$this->db->order_by('S.NOMBRE_SEDE', 'ASC');
+	$query = $this->db->get('sede S');
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * LUGARES
      * Modules: Parametros
      * @since 15/3/2019
      */
@@ -293,7 +314,7 @@ class General_model extends CI_Model {
     }
 	
     /**
-     * Temas
+     * PROGRAMAS
      * Modules: Parametros
      * @since 15/3/2019
      */
@@ -321,7 +342,7 @@ class General_model extends CI_Model {
     }
 
     /**
-     * Temas
+     * TEMAS
      * Modules: TUTORIAS
      * @since 15/3/2019
      */
@@ -391,6 +412,28 @@ class General_model extends CI_Model {
             return false;
         }
     }
+
+
+    /**
+     * CREAR ESCUELAS
+     * Modules: Parametros
+     * @since 25/4/2019
+     * @author SDD
+     
+    public function get_param_escuela($arrData) 
+	{
+        $this->db->select("E.*");
+        if (array_key_exists("idEscuela", $arrData)) {
+            $this->db->where('E.ID_ESCUELA', $arrData["idEscuela"]);
+        }
+	$this->db->order_by('E.NOMBRE_ESCUELA', 'ASC');
+	$query = $this->db->get('escuela E');
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }*/
 	
     /**
      * ESCUELAS
@@ -405,8 +448,44 @@ class General_model extends CI_Model {
         if (array_key_exists("idSede", $arrData)) {
             $this->db->where('S.ID_SEDE', $arrData["idSede"]);
         }
-		
+        if (array_key_exists("idEscuela", $arrData)) {
+            $this->db->where('E.ID_ESCUELA', $arrData["idEscuela"]);
+        }
+		$this->db->order_by('E.NOMBRE_ESCUELA', 'ASC');
 		$query = $this->db->get('escuela E');
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+     /**
+     * TEMAS
+     * Modules: TUTORIAS
+     * @since 15/3/2019
+     */
+    public function get_escuela_sede($arrData) 
+    {
+        $this->db->select("T.*, S.NOMBRE_SEDE, E.NOMBRE_ESCUELA");
+        $this->db->join('sede S', 'S.ID_SEDE = T.ID_SEDE', 'LEFT');
+        $this->db->join('escuela E', 'E.ID_ESCUELA = T.ID_ESCUELA', 'LEFT');
+        $this->db->order_by('NOMBRE_ESCUELA', "ASC");
+        
+        if (array_key_exists("idEscuelaSede", $arrData)) {
+            $this->db->where('T.ID_ESCUELAS_X_SEDE', $arrData["idEscuelaSede"]);
+        }
+        
+        if (array_key_exists("idSede", $arrData) && $arrData["idSede"] != '') {
+            $this->db->where('T.ID_SEDE', $arrData["idSede"]);
+        }
+        
+        if (array_key_exists("idEscuela", $arrData) && $arrData["idEscuela"] != '') {
+            $this->db->where('T.ID_ESCUELA', $arrData["idEscuela"]);
+        }
+        
+        $query = $this->db->get("escuelasede");
 
         if ($query->num_rows() > 0) {
             return $query->result_array();
@@ -423,11 +502,16 @@ class General_model extends CI_Model {
     public function get_docentes($arrData) 
 	{
         $this->db->select();
+        $this->db->join('escuela E', 'E.ID_ESCUELA = D.ID_ESCUELA', 'INNER');
 		
         if (array_key_exists("idEscuela", $arrData)) {
             $this->db->where('D.ID_ESCUELA', $arrData["idEscuela"]);
         }
-		
+
+		if (array_key_exists("idDocente", $arrData)) {
+            $this->db->where('D.ID_DOCENTE', $arrData["idDocente"]);
+        }
+
 		$this->db->order_by('D.NOMBRE', 'asc');
 		$query = $this->db->get('docente D');
 
@@ -440,7 +524,7 @@ class General_model extends CI_Model {
 	
     /**
      * Asignaturas de una tutoria
-     * Modules: ESTUDIATE
+     * Modules: ESTUDIANTE
      * @since 20/3/2019
      */
     public function get_asignaturas_tutoria($arrData) 
@@ -451,7 +535,7 @@ class General_model extends CI_Model {
         if (array_key_exists("idTutoria", $arrData)) {
             $this->db->where('A.fk_ta_tutoria_base', $arrData["idTutoria"]);
         }
-		
+		$this->db->order_by('X. Asignaturas', 'ASC');
 		$query = $this->db->get('tutorias_asignaturas A');
 
         if ($query->num_rows() > 0) {
@@ -553,7 +637,7 @@ class General_model extends CI_Model {
     }
 	
     /**
-     * Temas
+     * Búsqueda del perfil "Docente"
      * Modules: DOCENTES
      * @since 27/3/2019
      */
@@ -594,7 +678,8 @@ class General_model extends CI_Model {
             return false;
         }
     }
-	/**
+	
+		/**
 		 * Actualizar datos de la tutoria, se cierrar tutoria
 		 * @since 27/3/2019
 		 */

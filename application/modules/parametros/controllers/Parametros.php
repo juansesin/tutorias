@@ -51,38 +51,6 @@ class Parametros extends CI_Controller {
     }
 	
 	/**
-	 * Update usuarios
-     * @since 12/3/2019
-     * @author JSJL
-	 */
-	public function save_usuario()
-	{			
-			header('Content-Type: application/json');
-			$data = array();
-			
-			$idUsuario = $this->input->post('hddId');
-			
-			$msj = "Se adicionó un nuevo Usuario";
-			if ($idUsuario != '') {
-				$msj = "Se editó un Usuario";
-			}
-
-			if ($idUsuario = $this->parametros_model->saveUsuario()) {
-				$data["result"] = true;
-				$data["idRecord"] = $idUsuario;
-				
-				$this->session->set_flashdata('retornoExito', $msj);
-			} else {
-				$data["result"] = "error";
-				$data["idRecord"] = "";
-				
-				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
-			}
-
-			echo json_encode($data);
-    }
-
-	/**
 	 * Update lugar
      * @since 12/3/2019
      * @author BMOTTAG
@@ -161,7 +129,7 @@ class Parametros extends CI_Controller {
     }
 	
 	/**
-	 * Update lugar
+	 * Update programas
      * @since 12/3/2019
      * @author BMOTTAG
 	 */
@@ -339,21 +307,6 @@ class Parametros extends CI_Controller {
     }
 	
 	/**
-	 * Lista de usuarios
-     * @since 17/4/2019
-     * @author JSJL
-	 */
-	public function usuarios()
-	{
-			$this->load->model("general_model");
-			$arrParam = array();
-			$data['info'] = $this->general_model->get_usuarios($arrParam);
-			
-			$data["view"] = 'usuarios';
-			$this->load->view("layout", $data);
-	}
-	
-	/**
 	 * Lista de periodos
      * @since 13/3/2019
      * @author BMOTTAG
@@ -367,20 +320,6 @@ class Parametros extends CI_Controller {
 			$data["view"] = 'periodos';
 			$this->load->view("layout", $data);
 	}
-	
-    /**
-     * Cargo modal - formulario usuarios
-     * @since 13/3/2019
-     */
-    public function cargarModalUsuarios() 
-	{
-			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
-			
-			$data['information'] = FALSE;
-			$arrParam = array("idUser" => $this->input->post("idUser"));
-			$data['information'] = $this->general_model->get_usuarios($arrParam);
-			$this->load->view("usuarios_modal", $data);
-    }
 
     /**
      * Cargo modal - formulario periodos
@@ -439,5 +378,341 @@ class Parametros extends CI_Controller {
 			echo json_encode($data);
     }
 
+    /**
+	 * Lista de usuarios
+     * @since 17/4/2019
+     * @author JSJL
+	 */
+	public function usuarios()
+	{
+			$this->load->model("general_model");
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_usuarios($arrParam);
+			
+			$data["view"] = 'usuarios';
+			$this->load->view("layout", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario usuarios
+     * @since 13/3/2019
+     */
+    public function cargarModalUsuarios() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$arrParam = array("idUser" => $this->input->post("idUser"));
+			$data['information'] = $this->general_model->get_usuarios($arrParam);
+			$this->load->view("usuarios_modal", $data);
+    }
+
+/**
+	 * Update usuarios
+     * @since 12/3/2019
+     * @author JSJL
+	 */
+	public function save_usuario()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idUsuario = $this->input->post('hddId');
+			
+			$msj = "Se adicionó un nuevo Usuario";
+			if ($idUsuario != '') {
+				$msj = "Se editó un Usuario";
+			}
+
+			if ($idUsuario = $this->parametros_model->saveUsuario()) {
+				$data["result"] = true;
+				$data["idRecord"] = $idUsuario;
+				
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$data["idRecord"] = "";
+				
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    }
+
+    /**
+	 * Lista de sedes
+     * @since 25/4/2019
+     * @author SDD
+	 */
+	public function sede()
+	{
+			$this->load->model("general_model");
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_sede($arrParam);
+			
+			$data["view"] = 'sede';
+			$this->load->view("layout", $data);
+
+	}
+	
+    /**
+     * Cargo modal - formulario sede
+     * @since 25/4/2019
+     * @author SDD
+     */
+    public function cargarModalSede() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$arrParam = array("idSede" => $this->input->post("idSede"));
+			$data['information'] = $this->general_model->get_sede($arrParam);
+			$this->load->view("sede_modal", $data);
+    }
+
+/**
+	 * Update sede
+     * @since 25/4/2019
+     * @author SDD
+	 */
+	public function save_sede()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idSede = $this->input->post('hddId');
+			
+			$msj = "Se adicionó una nueva sede";
+			if ($idSede != '') {
+				$msj = "Se editó una sede";
+			}
+
+			if ($idSede = $this->parametros_model->saveSede()) {
+				$data["result"] = true;
+				$data["idRecord"] = $idSede;
+				
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$data["idRecord"] = "";
+				
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    }
+
+/**
+	 * Lista de escuelas
+     * @since 25/4/2019
+     * @author SDD
+	 */
+	public function escuela()
+	{
+			$this->load->model("general_model");
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_escuelas($arrParam);
+			
+			$data["view"] = 'escuela';
+			$this->load->view("layout", $data);
+
+	}
+	
+    /**
+     * Cargo modal - formulario escuela
+     * @since 25/4/2019
+     * @author SDD
+     */
+    public function cargarModalEscuela() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$arrParam = array("idEscuela" => $this->input->post("idEscuela"));
+			$data['information'] = $this->general_model->get_escuelas($arrParam);
+			$this->load->view("escuela_modal", $data);
+    }
+
+/**
+	 * Update escuela
+     * @since 25/4/2019
+     * @author SDD
+	 */
+	public function save_escuela()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idEscuela = $this->input->post('hddId');
+			
+			$msj = "Se adicionó una nueva escuela";
+			if ($idEscuela != '') {
+				$msj = "Se editó una escuela";
+			}
+
+			if ($idEscuela = $this->parametros_model->saveEscuela()) {
+				$data["result"] = true;
+				$data["idRecord"] = $idEscuela;
+				
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$data["idRecord"] = "";
+				
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    }   
+
+/**
+	 * Lista de docentes
+     * @since 25/4/2019
+     * @author SDD
+	 */
+	public function docente()
+	{
+			$this->load->model("general_model");
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_docentes($arrParam);
+			
+			$data["view"] = 'docente';
+			$this->load->view("layout", $data);
+
+	}
+	
+    /**
+     * Cargo modal - formulario docente
+     * @since 25/4/2019
+     * @author SDD
+     */
+    public function cargarModalDocente() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			
+			$arrParam = array("idDocente" => $this->input->post("idDocente"));
+			$data['information'] = $this->general_model->get_docentes($arrParam);
+
+			$arrParam = array(
+				"table" => "escuela",
+				"order" => "NOMBRE_ESCUELA",
+				"id" => "x"
+			);
+			$data['ESCUELA'] = $this->general_model->get_basic_search($arrParam);//ESCUELA list
+	
+			$this->load->view("docente_modal", $data);
+    }
+
+/**
+	 * Update escuela docente
+     * @since 25/4/2019
+     * @author SDD
+	 */
+	public function save_docente()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idDocente = $this->input->post('hddId');
+			
+			$msj = "Se adicionó un docente";
+			if ($idDocente != '') {
+				$msj = "Se editó la escuela del docente";
+			}
+
+			if ($idDocente = $this->parametros_model->saveDocente()) {
+				$data["result"] = true;
+				$data["idRecord"] = $idDocente;
+				
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$data["idRecord"] = "";
+				
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    }
+
+    /**
+	 * Lista de escuela y sede
+     * @since 26/4/2019
+     * @author SDD
+	 */
+	public function escuelasede()
+	{
+			$this->load->model("general_model");
+			$arrParam = array();
+			$data['info'] = $this->general_model->get_escuela_sede($arrParam);
+			
+			$data["view"] = 'escuelasede';
+			$this->load->view("layout", $data);
+	}
+	
+    /**
+     * Cargo modal - formulario escuela y sede
+     * @since 26/4/2019
+     */
+    public function cargarModalEscuelaSede() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$arrParam = array("idEscuelaSede" => $this->input->post("idEscuelaSede"));
+			$data['information'] = $this->general_model->get_escuela_sede($arrParam);
+
+			$arrParam = array(
+				"table" => "escuela",
+				"order" => "NOMBRE_ESCUELA",
+				"id" => "x"
+			);
+			$data['ESCUELA'] = $this->general_model->get_basic_search($arrParam);//ESCUELA list
+
+
+			$arrParam = array(
+				"table" => "sede",
+				"order" => "NOMBRE_SEDE",
+				"id" => "x"
+			);
+			$data['SEDE'] = $this->general_model->get_basic_search($arrParam);//SEDE list
+
+
+			$this->load->view("escuelasede_modal", $data);
+    }
+
+/**
+	 * Update escuela y sede
+     * @since 26/4/2019
+     * @author SDD
+	 */
+	public function save_escuelasede()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idEscuelaSede = $this->input->post('hddId');
+			
+			$msj = "Se adicionó una nueva relación";
+			if ($idEscuelaSede != '') {
+				$msj = "Se editó la relación seleccionada";
+			}
+
+			if ($idEscuelaSede = $this->parametros_model->saveEscuelaSede()) {
+				$data["result"] = true;
+				$data["idRecord"] = $idEscuelaSede;
+				
+				$this->session->set_flashdata('retornoExito', $msj);
+			} else {
+				$data["result"] = "error";
+				$data["idRecord"] = "";
+				
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			echo json_encode($data);
+    } 
 	
 }
