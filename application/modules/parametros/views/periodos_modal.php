@@ -48,14 +48,14 @@ function valid_dias()
 		from = $( "#inicio_periodo" )
 		.datepicker({
 			changeMonth: true,
-			numberOfMonths: 2
+			numberOfMonths: 1
 		})
 		.on( "change", function() {
 			to.datepicker( "option", "minDate", getDate( this ) );
 		}),
 		to = $( "#fin_periodo" ).datepicker({
 			changeMonth: true,
-			numberOfMonths: 2
+			numberOfMonths: 1
 		})
 		.on( "change", function() {
 			from.datepicker( "option", "maxDate", getDate( this ) );

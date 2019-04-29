@@ -179,12 +179,13 @@ Asistencia
 											$estado = TRUE;
 											break;
 										case 2:
-											$valor = 'No asistió';
+											$valor = 'Asistió';
 											$clase = "text-danger";
 											$estado = FALSE;
 											break;
 									}
-									echo '<p class="' . $clase . '"><strong>' . $valor . '</strong>';
+									//echo '<p class="' . $clase . '"><strong>' . $valor . '</strong>';
+									echo '<p><strong>' . $valor . '</strong>';
 									
 									
 									$data = array(

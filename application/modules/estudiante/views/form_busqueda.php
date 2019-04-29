@@ -45,7 +45,7 @@ if(count($PERIODOS) != 1){
 <?php }else{ ?>
 	
             <!-- form start -->
-			<form id="form" role="form" method="post">
+			<form id="form" role="form" method="post" autocomplete="off">
 		
       <div class="row">
         <!-- left column -->
@@ -133,6 +133,24 @@ if(count($PERIODOS) != 1){
 							<label for="exampleInputEmail1">Fecha</label><br>
 							<script>
 							$( function() {
+                					$.datepicker.regional['es'] = {
+					                closeText: 'Cerrar',
+					                prevText: '< Ant',
+					                nextText: 'Sig >',
+       					                currentText: 'Hoy',
+        					        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            					        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+          					        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+					                dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+					                dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+					                weekHeader: 'Sm',
+					                dateFormat: 'dd/mm/yy',
+					                firstDay: 1,
+					                isRTL: false,
+					                showMonthAfterYear: false,
+					                yearSuffix: ''
+					                };
+					                $.datepicker.setDefaults($.datepicker.regional['es']);
 								$( "#fechaInicio" ).datepicker({
 									changeMonth: true,
 									changeYear: true,

@@ -61,7 +61,7 @@ if(count($PERIODOS) != 1){
         </div>
 
             <!-- form start -->
-			<form id="form" role="form">
+			<form id="form" role="form" autocomplete="off">
 			<input type="hidden" id="inicio_periodo" name="inicio_periodo" value="<?php echo $PERIODOS[0]['inicio_periodo']; ?>"/>
 			<input type="hidden" id="fin_periodo" name="fin_periodo" value="<?php echo $PERIODOS[0]['fin_periodo']; ?>"/>
 		

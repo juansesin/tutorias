@@ -63,6 +63,7 @@ $( document ).ready( function () {
                                             
 						if( data.result == "error" )
 						{
+						alert('Error. Reload the web page.');
 							$("#div_load").css("display", "none");
 							$("#div_error").css("display", "inline");
 							$("#span_msj").html(data.mensaje);

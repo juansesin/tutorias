@@ -1,7 +1,10 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/estudiante/ajaxTema.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/estudiante/inscripcion.js"); ?>"></script>
-
-  <!-- Content Wrapper. Contains page content -->
+<script>
+window.location.hash="no-back-button";
+window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">

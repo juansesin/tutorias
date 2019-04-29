@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/estudiante/cancelar.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/estudiante/calificar.js"); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/estudiante/asistencia.js"); ?>"></script>
-
+</script>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -124,12 +124,20 @@ if(!$info)
 
 								$fechaActual = date_create(date('Y-m-d G:i'));
 								
-								if($fechaActual > $fechaTutoriaInicio){
+								if($fechaActual > $fechaTutoriaInicio and $fechaActual < $fechaTutoriaFin){
 									$bandera = false; //no se cancelar porque ya empezo la tutoria
 									$mensaje = "Ya inició la Tutoría.";
 									if($lista["estado_tutoria"] != 4 && $lista["asistencia"] == 1 && $lista["asistencia_docente"] != 0){
 										$banderaIniciada = true;//si esta iniciada y NO esta cancelada (y no esta cerrada entonces puede calificar al docente; se elimina esta condición)
-										$mensaje = "Tutoría perdiente por calificar";
+										$mensaje = "Tutoría pendiente por calificar";
+									}
+								}
+								elseif($fechaActual > $fechaTutoriaFin){
+									$bandera = false; //no se cancelar porque ya empezo la tutoria
+									$mensaje = "Ya terminó la Tutoría.";
+									if($lista["estado_tutoria"] != 4 && $lista["asistencia"] == 1 && $lista["asistencia_docente"] != 0){
+										$banderaIniciada = true;//si esta iniciada y NO esta cancelada (y no esta cerrada entonces puede calificar al docente; se elimina esta condición)
+										$mensaje = "Tutoría pendiente por calificar";
 									}
 								}
 								
@@ -211,9 +219,9 @@ if(!$info)
 									<div class="form-group">
 										<select name="calificacion" id="calificacion" class="form-control select2" >
 											<option value="">Seleccione...</option>
-											<option value=1 <?php if($lista["calificacion"] == 1) { echo "selected"; }  ?>>Buena</option>
-											<option value=2 <?php if($lista["calificacion"] == 2) { echo "selected"; }  ?>>Regular</option>
-											<option value=3 <?php if($lista["calificacion"] == 3) { echo "selected"; }  ?>>Mala</option>
+											<option value=1 style="font-family:'FontAwesome'" <?php if($lista["calificacion"] == 1) { echo "selected"; }  ?>>&#xf118; Buena</option>
+											<option value=2 style="font-family:'FontAwesome'" <?php if($lista["calificacion"] == 2) { echo "selected"; }  ?>>&#xf11a; Regular</option>
+											<option value=3 style="font-family:'FontAwesome'" <?php if($lista["calificacion"] == 3) { echo "selected"; }  ?>>&#xf119; Mala</option>
 										</select>
 									</div>
 										

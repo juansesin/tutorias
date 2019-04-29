@@ -28,6 +28,33 @@ class General_model extends CI_Model {
     }
 	
     /**
+     * Verifica si ya existe una tutoria para un docente en un dia a una hora
+     * Modules: 
+     * @since 12/4/2019
+     * JSJL 
+     */
+    public function get_tutoria_docente_en_horario($arrData) 
+	{
+        $this->db->select();
+		
+        if (array_key_exists("fk_id_docente", $arrData) and array_key_exists("tutoria_lunes", $arrData) and array_key_exists("lunes_inicio", $arrData)) {
+            $this->db->where('fk_id_docente', $arrData["fk_id_docente"]);
+            $this->db->where('tutoria_lunes', $arrData["tutoria_lunes"]);
+            $this->db->where('lunes_inicio', $arrData["lunes_inicio"]);
+        }
+	$query = $this->db->get('tutorias_base');
+	$mensaje = "Existe una tutoría para el docente";
+        if ($query->num_rows() > 0) 
+	{
+            $mensaje_lunes = "el lunes a las ".$arrData["lunes_inicio"];
+        } 
+	else 
+	{
+            return false;
+        }
+    }
+
+    /**
      * Verifica si un estudiante ya tiene tutoria el mismo día a la misma hora
      * Modules: Parametros
      * @since 12/3/2019
@@ -567,6 +594,29 @@ class General_model extends CI_Model {
             return false;
         }
     }
+	/**
+		 * Actualizar datos de la tutoria, se cierrar tutoria
+		 * @since 27/3/2019
+		 */
+		public function updateTutoriaCerrar() 
+		{				
+				$idTutoria = $this->input->post('hddIdTutoriaPrincipal');
+		
+				$data = array(
+					'estado_tutoria' => 5,
+					'observaciones' => $this->input->post('observaciones')
+				);
+				
+				$this->db->where('id_tutorias_principal', $idTutoria);
+				$query = $this->db->update('tutorias_principal', $data);
+			
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
 	
 		/**
 		 * Actualizar datos de la tutoria, se cierrar tutoria

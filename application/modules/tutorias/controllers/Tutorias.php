@@ -84,7 +84,12 @@ class Tutorias extends CI_Controller {
 			$viernes_fin = $this->input->post('horario_maximo_viernes');
 			$sabado_inicio = $this->input->post('horario_minimo_sabado');
 			$sabado_fin = $this->input->post('horario_maximo_sabado');
-						
+			$fk_id_docente = $this->input->post('fk_id_docente');
+		$this->load->model("general_model");
+		$arrParam = array("fk_id_docente" => $fk_id_docente,"tutoria_lunes" => $lunes,"lunes_inicio" => $lunes_inicio);
+		$lista = $this->general_model->get_tutoria_docente_en_horario($arrParam);
+//print "<script type=\"text/javascript\">alert('Some text');</script>";
+		//die(print_r($lista));				
 			if ($idTutoria = $this->tutorias_model->saveTutoria()) 
 			{
 				//GUARDO ASIGNATURAS DE LA Tutorias
