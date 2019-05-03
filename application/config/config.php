@@ -36,7 +36,11 @@ $config['base_url'] = 'http://tutorias.usa.edu.co/';
 | variable so that it is blank.
 |
 */
+<<<<<<< HEAD
 $config['index_page'] = 'index.php';
+=======
+$config['index_page'] = '';
+>>>>>>> 9c057308de98162948ee0f2c65fe7318202e8ae6
 
 /*
 |--------------------------------------------------------------------------

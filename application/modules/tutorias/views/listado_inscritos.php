@@ -172,7 +172,10 @@ Asistencia
 								<td><?php echo $lista['first_name'] . ' ' . $lista['last_name']; ?></td>
 								<td class='text-center'>
 								<?php
+<<<<<<< HEAD
 									$valor = '';
+=======
+>>>>>>> 9c057308de98162948ee0f2c65fe7318202e8ae6
 									switch ($lista['asistencia']) {
 										case 1:
 											$valor = 'Asistió';

@@ -142,6 +142,7 @@ class General_model extends CI_Model {
             return false;
         }
     }
+<<<<<<< HEAD
 
     /**
      * Asignaturas
@@ -170,6 +171,8 @@ class General_model extends CI_Model {
             return false;
         }
     }
+=======
+>>>>>>> 9c057308de98162948ee0f2c65fe7318202e8ae6
 	
     /**
      * Temas
@@ -433,7 +436,11 @@ class General_model extends CI_Model {
         }
 		
 		$query = $this->db->get('tutorias_principal T');
+<<<<<<< HEAD
 //die(print_r($this->db->last_query()));
+=======
+
+>>>>>>> 9c057308de98162948ee0f2c65fe7318202e8ae6
         if ($query->num_rows() > 0) {
             return $query->result_array();
         } else {
